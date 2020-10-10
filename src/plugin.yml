@@ -1,0 +1,51 @@
+main: fr.volax.anezia.AneziaAddons
+version: 1.0.01
+name: AneziaAddons
+author: Volax
+softdepend: [Factions, WorldGuard, WorldEdit]
+commands:
+  chunkbuster:
+    description: Give a player (a) chunkbuster(s).
+    aliases: [cb]
+  bhammer:
+    description: Commande en lien avec le hammer
+    permission: bhammer.use
+  creepereau:
+  creeperlave:
+  givedynamite:
+    permission: dynamite.admin
+  orbespeed:
+    permission: orbe.admin
+  orberesi:
+    permission: orbe.admin
+  orbeforce:
+    permission: orbe.admin
+  orbefall:
+    permission: orbe.admin
+  sellwand:
+    description: Give a player a sell wand.
+  giveunclaimfinder:
+    permission: unclaimfinder.admin
+    description: UnclaimFinder command.
+    aliases: [ givefinder, givewacfinder ]
+
+permissions:
+  chunkbuster.give:
+    description: Access to the /cb give command.
+    default: op
+  chunkbuster.reload:
+    description: Access to the /cb reload command.
+    default: op
+  chunkbuster.water:
+    description: Access to the /cb water command.
+    default: op
+  chunkbuster.admin:
+    description: Access to the /cb command.
+    default: op
+    children:
+      chunkbuster.give: true
+      chunkbuster.reload: true
+      chunkbuster.water: true
+  chunkbuster.use:
+    description: Be able to place chunkbusters.
+    default: true
