@@ -1,8 +1,9 @@
 main: fr.volax.anezia.AneziaAddons
-version: 1.0.01
+version: 1.0.02
 name: AneziaAddons
 author: Volax
 softdepend: [Factions, WorldGuard, WorldEdit]
+depend: [Vault]
 commands:
   chunkbuster:
     description: Give a player (a) chunkbuster(s).
@@ -27,8 +28,9 @@ commands:
   giveunclaimfinder:
     permission: unclaimfinder.admin
     description: UnclaimFinder command.
-    aliases: [ givefinder, givewacfinder ]
-
+    aliases: [givefinder, givewacfinder]
+  hh:
+    description: "All HarvestHoe commands"
 permissions:
   chunkbuster.give:
     description: Access to the /cb give command.

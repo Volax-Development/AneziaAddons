@@ -7,23 +7,39 @@ import fr.volax.anezia.events.*;
 import fr.volax.anezia.hooks.HookUtils;
 import fr.volax.anezia.hooks.MetricsLite;
 import fr.volax.anezia.utils.ConfigValues;
+import fr.volax.anezia.utils.CustomConfig;
 import fr.volax.anezia.utils.ItemBuilder;
 import fr.volax.anezia.utils.Utils;
-import net.minecraft.server.v1_8_R3.NBTBase;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagInt;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class AneziaAddons extends JavaPlugin {
-    private ConfigValues configValues = new ConfigValues(this);
-    private Utils utils = new Utils(this);
+    private final ConfigValues configValues = new ConfigValues(this);
+    private final Utils utils = new Utils(this);
     private HookUtils hookUtils;
     private static AneziaAddons instance;
+
+    public static Economy economy = null;
+    public static Permission permission = null;
+
+    public HashMap<UUID, Boolean> safemode = new HashMap<>();
+
+    public HashMap<UUID, Boolean> getSafeMode() {
+        return this.safemode;
+    }
 
     private ItemStack item;
     private int maxAmount;
@@ -49,6 +65,16 @@ public class AneziaAddons extends JavaPlugin {
         this.maxAmount = getConfig().getInt("max-amount");
         this.useMessage = l(getConfig().getString("use-message"));
 
+        this.safemode = new HashMap<>();
+
+        setupPermissions();
+        CustomConfig.setup();
+        CustomConfig.get().options().copyDefaults(true);
+        CustomConfig.save();
+        for (String s : CustomConfig.get().getKeys(false)) {
+            UUID uuid = UUID.fromString(s);
+            this.safemode.put(uuid, CustomConfig.get().getBoolean(s));
+        }
 
         PluginManager pluginManager = this.getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerEvents(this), this);
@@ -60,6 +86,7 @@ public class AneziaAddons extends JavaPlugin {
         pluginManager.registerEvents(new OrbeEvents(this), this);
         pluginManager.registerEvents(new SellWandListener(this), this);
         pluginManager.registerEvents(new FinderUseEvents(this), this);
+        pluginManager.registerEvents(new HarvestHoeListeners(this), this);
 
         (new SellWandListener(this)).setupItems();
 
@@ -76,6 +103,15 @@ public class AneziaAddons extends JavaPlugin {
         this.getCommand("orbefall").setExecutor(new OrbeCommand());
         this.getCommand("sellwand").setExecutor(new SellWandCmd(this));
         this.getCommand("giveunclaimfinder").setExecutor(new FinderCommand(this.item));
+        this.getCommand("hh").setExecutor(new HarvestHoeCommand());
+    }
+
+    @Override
+    public void onDisable() {
+        CustomConfig.setup();
+        for (Map.Entry<UUID, Boolean> safe : this.safemode.entrySet())
+            CustomConfig.get().set((safe.getKey()).toString(), safe.getValue());
+        CustomConfig.save();
     }
 
     public Utils getUtils() {
@@ -87,24 +123,42 @@ public class AneziaAddons extends JavaPlugin {
     public HookUtils getHookUtils() {
         return hookUtils;
     }
-
     public static AneziaAddons getInstance() {
         return instance;
     }
-
     private String l(String s) {
         return s.replace("&", "§");
     }
-
     public int getMaxAmount() {
         return this.maxAmount;
     }
-
     public ItemStack getItem() {
         return this.item;
     }
-
     public String getUseMessage() {
         return this.useMessage;
+    }
+
+    public boolean setupEconomy() {
+        RegisteredServiceProvider<Economy> eco = getServer().getServicesManager().getRegistration(Economy.class);
+        if (eco != null)
+            economy = (Economy)eco.getProvider();
+        return (economy != null);
+    }
+
+    public boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(Permission.class);
+        if (permissionProvider != null)
+            permission = (Permission)permissionProvider.getProvider();
+        return (permission != null);
+    }
+
+    public ArrayList<String> getLore(String s) {
+        ArrayList<String> lore = (ArrayList<String>)instance.getConfig().getList(s);
+        for (int i = 0; i < lore.size(); i = i + 1) {
+            String str = lore.get(i);
+            lore.set(i, str.replace("&", "§"));
+        }
+        return lore;
     }
 }

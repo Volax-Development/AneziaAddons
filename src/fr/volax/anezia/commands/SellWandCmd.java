@@ -3,7 +3,6 @@ package fr.volax.anezia.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.massivecraft.factions.P;
 import fr.volax.anezia.AneziaAddons;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
