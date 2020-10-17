@@ -30,24 +30,23 @@ public class ChestViewerListeners implements Listener {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.CHEST) c = (Chest)e.getClickedBlock().getState();
         else if (e.getAction() == Action.RIGHT_CLICK_AIR && e.getPlayer().getTargetBlock((HashSet<Byte>) null, 100).getType() == Material.CHEST) c = (Chest)e.getPlayer().getTargetBlock((HashSet<Byte>) null, 100).getState();
         else return;
-        if (e.getPlayer().hasPermission("chestviewer.view"))
-            if (!(e.getPlayer().getItemInHand().getItemMeta().getDisplayName() == null) ||e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l✸ §6§lChestViewer §c§l✸")) {
-                Player p = e.getPlayer();
-                Inventory inv = Bukkit.createInventory(e.getPlayer(), 54, this.main.getConfig().getString("chest-name"));
-                byte b;
-                int i;
-                ItemStack[] arrayOfItemStack;
-                for (i = (arrayOfItemStack = c.getInventory().getContents()).length, b = 0; b < i; ) {
-                    ItemStack itemStack = arrayOfItemStack[b];
-                    if (itemStack != null && !this.main.getConfig().getStringList("blacklisted-items").contains(itemStack.getType().name()))
-                        if (this.main.getConfig().getBoolean("show-amount")) inv.addItem(itemStack);
-                        else inv.addItem(new ItemStack(itemStack.getType(), 1));
-                    b++;
-                }
-                p.openInventory(inv);
-                if (this.main.getConfig().getBoolean("remove-item")) p.getInventory().setItemInHand(null);
+        if (!(e.getPlayer().getItemInHand().getItemMeta().getDisplayName() == null) && e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l✸ §6§lChestViewer §c§l✸")) {
+            Player p = e.getPlayer();
+            Inventory inv = Bukkit.createInventory(e.getPlayer(), 54, this.main.getConfig().getString("chest-name"));
+            byte b;
+            int i;
+            ItemStack[] arrayOfItemStack;
+            for (i = (arrayOfItemStack = c.getInventory().getContents()).length, b = 0; b < i; ) {
+                ItemStack itemStack = arrayOfItemStack[b];
+                if (itemStack != null && !this.main.getConfig().getStringList("blacklisted-items").contains(itemStack.getType().name()))
+                    if (this.main.getConfig().getBoolean("show-amount")) inv.addItem(itemStack);
+                    else inv.addItem(new ItemStack(itemStack.getType(), 1));
+                b++;
             }
-        else e.getPlayer().sendMessage(this.main.getConfig().getString("no-perm"));
+            p.openInventory(inv);
+            if (this.main.getConfig().getBoolean("remove-item")) p.getInventory().setItemInHand(null);
+        }
+
     }
 
     @EventHandler

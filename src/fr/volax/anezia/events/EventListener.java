@@ -35,11 +35,10 @@ public class EventListener implements Listener {
   public void onMine(BlockBreakEvent event) {
     Player player = event.getPlayer();
     Block block = event.getBlock();
-    int[] blockallowed = { 1, 14, 15, 16, 21, 56, 73, 74, 129 };
-    if ((player.getGameMode() == GameMode.SURVIVAL ||
-      player.getItemInHand().getType() == Material.GOLD_PICKAXE && 
+    int[] blockallowed = { 1, 4, 12, 13, 14, 15, 16, 21, 56, 73, 74, 129 };
+    if (player.getItemInHand().getType() == Material.GOLD_PICKAXE &&
       player.getItemInHand().getItemMeta().hasDisplayName() && 
-      player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l✸ §6§lHammer 3x3 §c§l✸"))) {
+      player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l✸ §6§lHammer 3x3 §c§l✸")) {
       byte b;
       int i;
       int[] arrayOfInt;

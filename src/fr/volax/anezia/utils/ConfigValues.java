@@ -134,7 +134,7 @@ public class ConfigValues {
         for (String rawMaterial : rawMaterials) {
             try {
                 materials.add(Material.valueOf(rawMaterial));
-            } catch (IllegalArgumentException illegalArgumentException) {}
+            } catch (IllegalArgumentException ignored) {}
         }
         return materials;
     }
@@ -147,7 +147,7 @@ public class ConfigValues {
         if (this.main.getConfig().getString("minimum-y").toLowerCase().contains("{player}"))
             return (int)p.getLocation().getY();
         try {
-            return Integer.valueOf(this.main.getConfig().getString("minimum-y")).intValue();
+            return Integer.parseInt(this.main.getConfig().getString("minimum-y"));
         } catch (NumberFormatException ex) {
             this.main.getLogger().warning("Your minimum-y value is invalid, please either change this to an integer or '{player}' in the config.");
             return 0;
@@ -158,7 +158,7 @@ public class ConfigValues {
         if (this.main.getConfig().getString("maximum-y").toLowerCase().contains("{player}"))
             return (int)p.getLocation().getY();
         try {
-            return Integer.valueOf(this.main.getConfig().getString("maximum-y")).intValue();
+            return Integer.parseInt(this.main.getConfig().getString("maximum-y"));
         } catch (NumberFormatException ex) {
             this.main.getLogger().warning("Your maximum-y value is invalid, please either change this to an integer or '{player}' in the config.");
             return 255;
@@ -204,7 +204,7 @@ public class ConfigValues {
         NOT_MINIMUM_ROLE("not-minimum-role"),
         GUI_CANCEL("gui-cancel");
 
-        private String path;
+        private final String path;
         Message(String path) {
             this.path = "messageschunk." + path;
         }

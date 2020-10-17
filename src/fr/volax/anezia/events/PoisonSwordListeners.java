@@ -1,5 +1,6 @@
 package fr.volax.anezia.events;
 
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import fr.volax.anezia.AneziaAddons;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -31,6 +32,8 @@ public class PoisonSwordListeners implements Listener {
 
         if(itemStack.getType() == null) return;
         if(itemStack.getType() == Material.DIAMOND_SWORD && itemStack.getItemMeta().getDisplayName().equals("§c§l✸ §6§lPoison Sword §c§l✸")){
+            if(isInRegion(damaged, "aneziaspawn")) return;
+            if(isInRegion(damager, "aneziaspawn")) return;
             UUID uuid = damager.getUniqueId();
             if(this.main.poisonSword.containsKey(uuid)){
                 int time = (int) ((System.currentTimeMillis() - this.main.poisonSword.get(uuid)) / 1000);
@@ -50,5 +53,10 @@ public class PoisonSwordListeners implements Listener {
                 this.main.poisonSword.put(uuid, System.currentTimeMillis());
             }
         }
+    }
+
+    protected boolean isInRegion(Player player, String region) {
+        com.sk89q.worldedit.Vector v = new com.sk89q.worldedit.Vector(player.getLocation().getX(), player.getLocation().getBlockY(), player.getLocation().getZ());
+        return WorldGuardPlugin.inst().getRegionManager(player.getLocation().getWorld()).getApplicableRegionsIDs(v).contains(region);
     }
 }

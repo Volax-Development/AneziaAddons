@@ -1,5 +1,5 @@
 main: fr.volax.anezia.AneziaAddons
-version: 1.0.03
+version: 1.0.04
 name: AneziaAddons
 author: Volax
 softdepend: [Factions, WorldGuard, WorldEdit]
@@ -47,6 +47,9 @@ commands:
   chestviewer:
     description: View chest contents
     aliases: [ cv, cviewer ]
+  repair:
+  discord:
+  site:
 
 permissions:
   chunkbuster.give:

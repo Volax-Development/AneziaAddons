@@ -36,6 +36,7 @@ public class AneziaAddons extends JavaPlugin {
         return this.safemode;
     }
     public HashMap<UUID, Long> poisonSword;
+    public HashMap<UUID, Long> repair;
 
     private ItemStack item;
     private int maxAmount;
@@ -73,6 +74,7 @@ public class AneziaAddons extends JavaPlugin {
         this.maxAmount = getConfig().getInt("max-amount");
         this.useMessage = l(getConfig().getString("use-message"));
         this.safemode = new HashMap<>();
+        this.repair = new HashMap<>();
 
         setupPermissions();
         CustomConfig.setup();
@@ -106,6 +108,7 @@ public class AneziaAddons extends JavaPlugin {
         (new SellWandListener(this)).setupItems();
         pluginManager.registerEvents(this.listener, this);
         pluginManager.registerEvents(new ChestViewerListeners(this), this);
+        pluginManager.registerEvents(new KillListener(), this);
 
         ChunkBusterCommand chunkBusterCommand = new ChunkBusterCommand(this);
         this.getCommand("chunkbuster").setExecutor(chunkBusterCommand);
@@ -128,6 +131,7 @@ public class AneziaAddons extends JavaPlugin {
         this.getCommand("converthopper").setAliases(Arrays.asList(this.commandAliases));
         this.getCommand("hlr").setExecutor(this.HLRSC);
         this.getCommand("chestviewer").setExecutor(new ChestViewerCommand(this));
+        this.getCommand("repair").setExecutor(new RepairCommand());
     }
 
     @Override

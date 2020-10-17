@@ -1,4 +1,4 @@
-package fr.volax.anezia;
+package fr.volax.anezia.commands;
 
 import fr.volax.anezia.utils.ItemBuilder;
 import org.bukkit.Bukkit;
