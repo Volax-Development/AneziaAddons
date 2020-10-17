@@ -1,0 +1,52 @@
+# -------------------------------
+#     HLR v1.2.2 message file
+# ------------------------------- 
+
+# Here you can set the prefix that will appear before every message this plugin sends.
+#Prefix: "" # use this if you do not need any prefixes.
+Prefix: ""
+
+# Here you can set the command response messages sent by the plugin.
+# Available placeholders: 
+#   %hoppername% - custom hopper name
+#   %fee% - transaction fee if set
+#   %maxamount% - max amount of hoppers that can be converted at once
+#   %chunklimit% - max amount of tweaked hoppers in one chunk
+# Message specific placeholders:
+#   %player% - recipient name (GiveHopper), sender name (ReceiveHopper)
+#   %amount% - amount of hoppers (GiveHopper, ReceiveHopper)
+
+Msgs:
+  ConvertCmd:
+    PlayerUseOnly: "§6Anézia §f» §eC'est une commande de joueur."
+    NoPermsConvert: "§cVous n'avez pas la permission d'executer cette commande !"
+    NoMoneyConvert: "§6Anézia §f» §eTu n'as pas assez d'argent pour le convetir en hopper."
+    ConvertSuccess: "§6Anézia §f» §eConverti avec succès le hopper en %hoppername%&a!"
+    TransactionCost: "§6Anézia §f» §eCette transaction vous a coûté §6$&a%fee%§e."
+    ConvertedHopper: "§6Anézia §f» §eVous avez déjà converti le hopper."
+    NotHoldingHopper: "§6Anézia §f» §eVous ne tenez pas de hopper pour le moment."
+    StillCoolingDown: "§6Anézia §f» §eCette commande est toujours en cours de cooldown."
+    TooMuchHopperAtOnce: "§6Anézia §f» §e Vous ne pouvez pas convertir plus de §6%maxamount% §ehoppers à la fois."
+
+  SubCmds:
+    NoPermsReload: "§cVous n'avez pas la permission d'executer cette commande !"
+    ReloadedPlugin: "§6Anézia §f» §eLe plugin de hopper a bien été reload."
+    UnknownArgument: "§6Anézia §f» §eCommande inconnue. Veillez taper /HLR help pour le menu d'aide."
+    GiveCmd:
+      GiveHopper: "§6Anézia §f» §eTu as donné §6%amount% §e%hoppername% §eà §6%player%§e."
+      ReceiveHopper: "§6Anézia §f» §eTu as reçu §6%amount% §e%hoppername% §ede §6%player%§e."
+      ReceiveHopperFromConsole: "§6Anézia §f» §eTu as reçu %amount% §e%hoppername%§e."
+      GiveToSelf: "§6Anézia §f» §eTu as §6%amount% §e%hoppername%&e."
+      InvalidAmount: "§6Anézia §f» §eLe montant que vous avez entré n'est pas valide."
+      PlayerNotFound: "§6Anézia §f» §eLe joueur spécifié n'est pas en ligne ou n'est pas valide."
+      NoRecipient: "§6Anézia §f» §eVeuillez entrer la personne à qui vous souhaitez donner le hopper modifiée."
+      NoPermsGive: "§cVous n'avez pas la permission d'executer cette commande !"
+    
+  Listener:
+    PlacedHopper: "§6Anézia §f» §eTu as placé un %hoppername%§e!"
+    DestroyedHopper: "§6Anézia §f» §eTu as détruit un %hoppername%§e!"
+    NotEnabledInWorld: "§6Anézia §f» %hoppername% §en'est pas activé dans ce monde!"
+    HopperLimitReached: "§6Anézia §f» §eLa limit de §6%chunklimit% §ede §6%hoppername% §epar chunk a été atteint."
+
+  Timer:
+    CanUseConvertCmd: "§6Anézia §f» §eTu peux maintenant réutiliser /converthopper."

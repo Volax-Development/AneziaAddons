@@ -16,8 +16,7 @@ public class CustomConfig {
         if (!file.exists())
             try {
                 file.createNewFile();
-            } catch (IOException iOException) {
-            }
+            } catch (IOException ignored) {}
         customFile = YamlConfiguration.loadConfiguration(file);
     }
 

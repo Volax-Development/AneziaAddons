@@ -68,8 +68,7 @@ public class SellWandListener implements Listener {
             ItemStack item = arrayOfItemStack[b];
             if (SellWandListener.items != null && item != null &&
                     SellWandListener.items.containsKey(item.getType())) {
-                double sellprice = 0.0D;
-                sellprice = ((Integer) SellWandListener.items.get(item.getType())).intValue();
+                double sellprice = SellWandListener.items.get(item.getType());
                 if (sellprice > 0.0D) {
                     finalValue += sellprice * item.getAmount();
                     removing.add(item);

@@ -14,7 +14,7 @@ public class DynamiteItem {
         ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
         skullMeta.setOwner("MHF_TNT");
-        skullMeta.setDisplayName("§d✿ §6Dynamite");
+        skullMeta.setDisplayName("§c§l✸ §6§lDynamite §c§l✸");
         skullMeta.addEnchant(Enchantment.DURABILITY, 1, true);
         skullMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         skull.setItemMeta( skullMeta);

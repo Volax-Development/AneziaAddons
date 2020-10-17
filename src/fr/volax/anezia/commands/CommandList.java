@@ -25,67 +25,25 @@ public class CommandList implements CommandExecutor {
             Player player = (Player) sender;
             if (cmd.getName().equalsIgnoreCase("bhammer"))
                 if (args.length == 0) {
-                    player.sendMessage("§7-----BestHammer-----");
+                    player.sendMessage("§e§m-----§6BestHammer§e-----");
                     player.sendMessage("§7/bhammer §6give §7- Give you the §chammer");
-                    player.sendMessage("§7/bhammer §6craft §7- Change craft of the §chammer");
-                    player.sendMessage("§7/bhammer §6name §7- Change name of the §chammer §4[/!\\]");
-                    player.sendMessage("§7/bhammer §6desc §7- Change lore of the §chammer §4[/!\\]");
-                    player.sendMessage("§7-----Made By ArT3k_-----");
+                    player.sendMessage("§e§m------------------------");
+                    return false;
                 } else if (args.length == 1) {
-                    if (args[0].equalsIgnoreCase("craft")) {
-                        if (player.hasPermission("bhammer.setcraft")) {
-                            Inventory inv = Bukkit.createInventory(null, 27, "§cSet Hammer Craft");
-                            ItemStack stick = new ItemStack(Material.RECORD_9, 1);
-                            ItemMeta metastick = stick.getItemMeta();
-                            metastick.setDisplayName("§cDont Touch");
-                            metastick.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
-                            stick.setItemMeta(metastick);
-                            int i;
-                            for (i = 0; i < 3; i++)
-                                inv.setItem(i, stick);
-                            for (i = 6; i < 9; i++)
-                                inv.setItem(i, stick);
-                            for (i = 9; i < 12; i++)
-                                inv.setItem(i, stick);
-                            for (i = 15; i < 18; i++)
-                                inv.setItem(i, stick);
-                            for (i = 18; i < 21; i++)
-                                inv.setItem(i, stick);
-                            for (i = 24; i < 27; i++)
-                                inv.setItem(i, stick);
-                            player.openInventory(inv);
-                        }
-                    } else if (args[0].equalsIgnoreCase("give")) {
-                        player.getInventory().setItemInHand(HammerCraft.getHammer());
+                    if (args[0].equalsIgnoreCase("give")) {
+                        player.getInventory().addItem(HammerCraft.getHammer());
                         player.updateInventory();
+                    }else{
+                        player.sendMessage("§e§m-----§6BestHammer§e-----");
+                        player.sendMessage("§7/bhammer §6give §7- Give you the §chammer");
+                        player.sendMessage("§e§m------------------------");
                     }
-                } else if (args.length >= 2) {
-                    if (args[0].equalsIgnoreCase("desc") &&
-                            player.hasPermission("bhammer.desc")) {
-                        String motfinal = "";
-                        for (int i = 1; i < args.length; i++) {
-                            if (i == 1) {
-                                motfinal = String.valueOf(motfinal) + args[1];
-                            } else {
-                                motfinal = String.valueOf(motfinal) + " " + args[i];
-                            }
-                        }
-                        this.main.getConfig().set("lore", motfinal.replace("&", "§"));
-                        this.main.saveConfig();
-                    }
-                    if (args[0].equalsIgnoreCase("name") &&
-                            player.hasPermission("bhammer.name")) {
-                        String motfinal = "";
-                        for (int i = 1; i < args.length; i++) {
-                            if (i == 1) {
-                                motfinal = String.valueOf(motfinal) + args[1];
-                            } else {
-                                motfinal = String.valueOf(motfinal) + " " + args[i];
-                            }
-                        }
-                        this.main.getConfig().set("hammer-name", motfinal.replace("&", "§"));
-                        this.main.saveConfig();
-                    }
+                    return false;
+                }else{
+                    player.sendMessage("§e§m-----§6BestHammer§e-----");
+                    player.sendMessage("§7/bhammer §6give §7- Give you the §chammer");
+                    player.sendMessage("§e§m------------------------");
+                    return false;
                 }
         }
         return false;

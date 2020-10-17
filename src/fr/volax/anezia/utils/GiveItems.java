@@ -22,7 +22,7 @@ public class GiveItems {
     }
 
     public ItemStack createCreeperWater() {
-        ItemStack item = (new ItemBuilder(Material.MONSTER_EGG, this.amount, (byte) 50)).setName("§d✿ §bCreeper §nd'eau").addEnchant(Enchantment.DURABILITY, 1).setLore("§7Grâce à ce nouveau creeper, vous allez pouvoir", "§7le faire exploser directement dans l'eau.").toItemStack();
+        ItemStack item = (new ItemBuilder(Material.MONSTER_EGG, this.amount, (byte) 50)).setName("§c§l✸ §6§lCreeper d'Eau §c§l✸").addEnchant(Enchantment.DURABILITY, 1).setLore("§7Grâce à ce nouveau creeper, vous allez pouvoir", "§7le faire exploser directement dans l'eau.").toItemStack();
         ItemMeta itemM = item.getItemMeta();
         itemM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(itemM);

@@ -18,15 +18,15 @@ import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class LaveListener implements Listener {
-    private HashMap<Player, Boolean> playersCreepers = new HashMap<Player, Boolean>();
+    private final HashMap<Player, Boolean> playersCreepers = new HashMap<Player, Boolean>();
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         if (e.getItem() == null || e.getItem().getType() == Material.AIR)
             return;
-        if (e.getItem().getType() == Material.MONSTER_EGG && e.getItem().getItemMeta().getDisplayName().equals("§d✿ §6Creeper de §nlave")) {
+        if (e.getItem().getType() == Material.MONSTER_EGG && e.getItem().getItemMeta().getDisplayName().equals("§c§l✸ §6§lCreeper de Lave §c§l✸")) {
             Player player = e.getPlayer();
-            this.playersCreepers.put(player, Boolean.valueOf(true));
+            this.playersCreepers.put(player, true);
         }
     }
 
@@ -44,7 +44,7 @@ public class LaveListener implements Listener {
     public void onEntityDamage(EntityDamageEvent e) {
         Entity entity = e.getEntity();
         if (entity instanceof Creeper &&
-                entity.getName().equals("§d✿ §6Creeper de §nlave") && (
+                entity.getName().equals("§c§l✸ §6§lCreeper de Lave §c§l✸") && (
                 e.getCause() == EntityDamageEvent.DamageCause.FIRE || e.getCause() == EntityDamageEvent.DamageCause.LAVA || e.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK))
             e.setCancelled(true);
     }
@@ -53,9 +53,9 @@ public class LaveListener implements Listener {
     public void onExplodeWater(EntityExplodeEvent e) {
         Entity entity = e.getEntity();
         if (entity instanceof Creeper &&
-                entity.getName().equals("§d✿ §6Creeper de §nlave")) {
+                entity.getName().equals("§c§l✸ §6§lCreeper de Lave §c§l✸")) {
             explodeLava(entity.getLocation());
-            customizeCreeper((Creeper) entity, 2);
+            customizeCreeper((Creeper) entity);
         }
     }
 
@@ -72,7 +72,7 @@ public class LaveListener implements Listener {
         }
     }
 
-    private void customizeCreeper(Creeper creeper, int radius) {
+    private void customizeCreeper(Creeper creeper) {
         EntityCreeper entCreeper = ((CraftCreeper) creeper).getHandle();
         Field radiusF = null;
         try {
@@ -82,7 +82,7 @@ public class LaveListener implements Listener {
         }
         radiusF.setAccessible(true);
         try {
-            radiusF.setInt(entCreeper, radius);
+            radiusF.setInt(entCreeper, 2);
         } catch (IllegalArgumentException | IllegalAccessException e) {
             e.printStackTrace();
         }

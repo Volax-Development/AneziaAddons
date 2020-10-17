@@ -20,9 +20,9 @@ import org.bukkit.potion.PotionEffectType;
 public class OrbeEvents implements Listener {
     private final AneziaAddons plugin;
 
-    private Map<String, Boolean> fire;
-    private Map<String, Boolean> speed;
-    private Map<String, Boolean> force;
+    private final Map<String, Boolean> fire;
+    private final Map<String, Boolean> speed;
+    private final Map<String, Boolean> force;
 
     public OrbeEvents(AneziaAddons main) {
         this.fire = new HashMap<>();

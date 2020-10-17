@@ -22,15 +22,6 @@ public class ConfigValues {
     short getChunkBusterDamage() {
         return this.main.getUtils().itemFromString(this.main.getConfig().getString("chunkbuster.material")).getData().getData();
     }
-    String getChunkBusterName() {
-        return Utils.color(this.main.getConfig().getString("chunkbuster.name"));
-    }
-    List<String> getChunkBusterLore(int chunkRadius) {
-        List<String> lore = this.main.getConfig().getStringList("chunkbuster.lore");
-        for (int i = 0; i < lore.size(); i++)
-            lore.set(i, Utils.color(lore.get(i)).replace("{area}", chunkRadius + "x" + chunkRadius));
-        return lore;
-    }
     public int getBlockPerTick() {
         return this.main.getConfig().getInt("blocks-removed-per-tick");
     }
@@ -192,15 +183,10 @@ public class ConfigValues {
 
     String getMessage(Message message, Object... params) {
         String messageText = Utils.color(this.main.getConfig().getString(message.getPath()));
-        if (message == Message.GIVE) {
-            messageText = messageText.replace("{player}", (String)params[0]).replace("{amount}", String.valueOf(params[1]));
-        } else if (message == Message.RECEIVE) {
-            messageText = messageText.replace("{amount}", String.valueOf(params[0]));
-        } else if (message == Message.CLEARING_IN_SECONDS) {
-            messageText = messageText.replace("{seconds}", String.valueOf(params[0]));
-        } else if (message == Message.COOLDOWN) {
-            messageText = messageText.replace("{minutes}", String.valueOf(params[0])).replace("{seconds}", String.valueOf(params[1]));
-        }
+        if (message == Message.GIVE) messageText = messageText.replace("{player}", (String)params[0]).replace("{amount}", String.valueOf(params[1]));
+        else if (message == Message.RECEIVE) messageText = messageText.replace("{amount}", String.valueOf(params[0]));
+        else if (message == Message.CLEARING_IN_SECONDS) messageText = messageText.replace("{seconds}", String.valueOf(params[0]));
+        else if (message == Message.COOLDOWN) messageText = messageText.replace("{minutes}", String.valueOf(params[0])).replace("{seconds}", String.valueOf(params[1]));
         return messageText;
     }
 
@@ -220,7 +206,7 @@ public class ConfigValues {
 
         private String path;
         Message(String path) {
-            this.path = "messages." + path;
+            this.path = "messageschunk." + path;
         }
         public String getPath() {
             return this.path;

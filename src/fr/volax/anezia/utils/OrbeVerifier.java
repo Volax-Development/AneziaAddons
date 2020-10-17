@@ -8,24 +8,24 @@ public class OrbeVerifier {
     private boolean b = false;
 
     public OrbeVerifier(Player player, OrbeType type) {
-        Material material = Material.SUGAR;
-        String name = "§cError";
+        Material material;
+        String name;
         switch (type) {
             case SPEED:
                 material = Material.SUGAR;
-                name = "§7Orbe de §bVitesse";
+                name = "§c§l✸ §6§lOrbe de Vitesse§c§l✸";
                 break;
             case FORCE:
                 material = Material.BLAZE_POWDER;
-                name = "§7Orbe de §cForce";
+                name = "§c§l✸ §6§lOrbe de Force§c§l✸";
                 break;
             case FIRE:
                 material = Material.MAGMA_CREAM;
-                name = "§7Orbe de §6Fire résistance";
+                name = "§c§l✸ §6§lOrbe de Résistance§c§l✸";
                 break;
             default:
                 material = Material.SLIME_BALL;
-                name = "§7Orbe de §aFall";
+                name = "§c§l✸ §6§lOrbe de Fall§c§l✸";
                 break;
         }
         byte b;

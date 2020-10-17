@@ -55,10 +55,12 @@ public class SellWandCmd implements CommandExecutor {
     public ItemStack getSellWand() {
         ItemStack sellWand = new ItemStack(Material.getMaterial(this.plugin.getConfig().getString("sellwand.type")));
         ItemMeta sellWandMeta = sellWand.getItemMeta();
-        sellWandMeta.setDisplayName(this.plugin.getConfig().getString("sellwand.name").replaceAll("(&([a-f0-9]))", "§$2").replaceAll("&l", "§l")
-                .replaceAll("&o", "§o").replaceAll("&k", "§k").replaceAll("&r", "§r").replaceAll("&n", "§n")
-                .replaceAll("&m", "§m"));
-        List<String> lores = this.plugin.getConfig().getStringList("sellwand.lore");
+        sellWandMeta.setDisplayName("§c§l✸ §6§lBâton De Vente §c§l✸");
+        List<String> lores = new ArrayList<>();
+        lores.add("§7§m------------------------------------");
+        lores.add("§f§l» §ePermet de vendre en un clique les items");
+        lores.add("§ede farm dans un coffre.");
+        lores.add("§7§m------------------------------------");
         List<String> replacedLores = new ArrayList<>();
         for (String lore : lores)
             replacedLores.add(lore.replaceAll("(&([a-f0-9]))", "§$2").replaceAll("&l", "§l").replaceAll("&o", "§o")

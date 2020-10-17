@@ -3,7 +3,7 @@ package fr.volax.anezia.utils;
 import org.bukkit.inventory.ItemStack;
 
 public class ValidItem {
-    private boolean b = false;
+    private boolean b;
 
     public ValidItem(ItemStack item) {
         if (item == null || !item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {

@@ -47,7 +47,7 @@ public class ChunkBusterCommand implements TabExecutor {
                                     try {
                                         chunkArea = Integer.parseInt(args[2]);
                                     } catch (NumberFormatException ex) {
-                                        sender.sendMessage(Utils.color("&cThis isn't a valid number!"));
+                                        sender.sendMessage("§6Anézia §f» §eThis isn't a valid number!");
                                         return false;
                                     }
                                     if (chunkArea > 0 && chunkArea % 2 != 0) {
@@ -56,21 +56,21 @@ public class ChunkBusterCommand implements TabExecutor {
                                             try {
                                                 giveAmount = Integer.parseInt(args[3]);
                                             } catch (NumberFormatException ex) {
-                                                sender.sendMessage(Utils.color("&cThis isn't a valid number!"));
+                                                sender.sendMessage("§6Anézia §f» §eThis isn't a valid number!");
                                                 return false;
                                             }
                                         ItemStack item = this.main.getUtils().getChunkBusterItem(giveAmount, chunkArea);
                                         if (!this.main.getConfigValues().dropFullInv())
                                             if (giveAmount < 65) {
                                                 if (p.getInventory().firstEmpty() == -1) {
-                                                    sender.sendMessage(Utils.color("&cThis player doesn't have any empty slots in their inventory!"));
+                                                    sender.sendMessage("§6Anézia §f» §eThis player doesn't have any empty slots in their inventory!");
                                                     return true;
                                                 }
                                             } else {
-                                                sender.sendMessage(Utils.color("&cYou can only give 64 at a time!"));
+                                                sender.sendMessage("§6Anézia §f» §eYou can only give 64 at a time!");
                                                 return true;
                                             }
-                                        Map<Integer, ItemStack> excessItems = p.getInventory().addItem(new ItemStack[]{item});
+                                        Map<Integer, ItemStack> excessItems = p.getInventory().addItem(item);
                                         for (ItemStack excessItem : excessItems.values()) {
                                             int itemCount = excessItem.getAmount();
                                             while (itemCount > 64) {
@@ -83,57 +83,38 @@ public class ChunkBusterCommand implements TabExecutor {
                                                 p.getWorld().dropItemNaturally(p.getLocation(), excessItem);
                                             }
                                         }
-                                        this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.GIVE, new Object[]{p.getName(), Integer.valueOf(giveAmount)});
-                                        this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.RECEIVE, new Object[]{Integer.valueOf(giveAmount)});
-                                    } else {
-                                        sender.sendMessage(Utils.color("&cThe area must be greater than 0 and be an odd number!"));
-                                    }
-                                } else {
-                                    sender.sendMessage(Utils.color("&cPlease specify the chunk area!"));
-                                }
-                            } else {
-                                sender.sendMessage(Utils.color("&cThis player is not online!"));
-                            }
-                        } else {
-                            sender.sendMessage(Utils.color("&cPlease specify a player!"));
-                        }
-                    } else {
-                        this.main.getUtils().sendMessage(sender, ConfigValues.Message.NO_PERMISSION_COMMAND, new Object[0]);
-                    }
+                                        this.main.getUtils().sendMessage(p, ConfigValues.Message.GIVE, p.getName(), giveAmount);
+                                        this.main.getUtils().sendMessage(p, ConfigValues.Message.RECEIVE, giveAmount);
+                                    } else sender.sendMessage("§6Anézia §f» §eThe area must be greater than 0 and be an odd number!");
+                                } else sender.sendMessage("§6Anézia §f» §ePlease specify the chunk area!");
+                            } else sender.sendMessage("§6Anézia §f» §eThis player is not online!");
+                        } else sender.sendMessage("§6Anézia §f» §ePlease specify a player!");
+                    } else this.main.getUtils().sendMessage(sender, ConfigValues.Message.NO_PERMISSION_COMMAND);
                     return false;
                 case "reload":
                     if (sender.hasPermission("chunkbuster.reload") || sender.hasPermission("chunkbuster.admin")) {
                         this.main.reloadConfig();
-                        sender.sendMessage(Utils.color("&aSuccessfully reloaded the config. Most values have been instantly updated."));
-                    } else {
-                        this.main.getUtils().sendMessage(sender, ConfigValues.Message.NO_PERMISSION_COMMAND, new Object[0]);
-                    }
+                        sender.sendMessage("§6Anézia §f» §eSuccessfully reloaded the config. Most values have been instantly updated.");
+                    } else this.main.getUtils().sendMessage(sender, ConfigValues.Message.NO_PERMISSION_COMMAND);
                     return false;
                 case "water":
                     if (sender.hasPermission("chunkbuster.water") || sender.hasPermission("chunkbuster.admin")) {
                         if (sender instanceof Player) {
                             if (this.main.getUtils().getWaterChunks().contains(((Player) sender).getLocation().getChunk())) {
                                 this.main.getUtils().getWaterChunks().remove(((Player) sender).getLocation().getChunk());
-                                sender.sendMessage(Utils.color("&aWater can now flow normally into this chunk."));
-                            } else {
-                                sender.sendMessage(Utils.color("&cThis chunk doesn't have water flow disabled!"));
-                            }
-                        } else {
-                            sender.sendMessage(Utils.color("&cYou cannot use this command from here!"));
-                        }
-                    } else {
-                        this.main.getUtils().sendMessage(sender, ConfigValues.Message.NO_PERMISSION_COMMAND, new Object[0]);
-                    }
+                                sender.sendMessage("§6Anézia §f» §eWater can now flow normally into this chunk.");
+                            } else sender.sendMessage("§6Anézia §f» §eThis chunk doesn't have water flow disabled!");
+                        } else sender.sendMessage("§6Anézia §f» §eYou cannot use this command from here!");
+                    } else this.main.getUtils().sendMessage(sender, ConfigValues.Message.NO_PERMISSION_COMMAND);
                     return false;
             }
-            sender.sendMessage(Utils.color("&cInvalid argument!"));
+            sender.sendMessage("§6Anézia §f» §eInvalid argument!");
         } else {
-            sender.sendMessage(Utils.color("&7&m--------------&7[&a&l ChunkBuster &7]&7&m--------------"));
-            sender.sendMessage(Utils.color("&a● /cb give <player> <chunk-area> [amount] &7- Give a player a chunk buster"));
-            sender.sendMessage(Utils.color("&a● /cb reload &7- Reload the config"));
-            sender.sendMessage(Utils.color("&a● /cb water &7- &e[DEBUG] &7 Allow water to flow normally in your current chunk"));
-            sender.sendMessage(Utils.color("&7&ov" + this.main.getDescription().getVersion() + " by Biscut"));
-            sender.sendMessage(Utils.color("&7&m-------------------------------------------"));
+            sender.sendMessage(Utils.color("&7&m--------------&7[&6&l Anézia ChunkBuster &7]&7&m--------------"));
+            sender.sendMessage(Utils.color("&6● /cb give <player> <chunk-area> [amount] &7- Give a player a chunk buster"));
+            sender.sendMessage(Utils.color("&6● /cb reload &7- Reload the config"));
+            sender.sendMessage(Utils.color("&6● /cb water &7- &e[DEBUG] &7 Allow water to flow normally in your current chunk"));
+            sender.sendMessage(Utils.color("&7&m------------------------------------"));
         }
         return false;
     }

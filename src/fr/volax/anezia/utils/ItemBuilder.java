@@ -8,6 +8,7 @@ import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -149,6 +150,13 @@ public class ItemBuilder implements Cloneable {
 
     public ItemBuilder setDyeColor(DyeColor color) {
         this.item.setDurability(color.getWoolData());
+        return this;
+    }
+
+    public ItemBuilder addItemFlag(ItemFlag itemFlag){
+        ItemMeta itemMeta = this.item.getItemMeta();
+        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        this.item.setItemMeta(itemMeta);
         return this;
     }
 

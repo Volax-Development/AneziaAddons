@@ -16,21 +16,21 @@ public class CreeperLaveCommand implements CommandExecutor {
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
                 if (target == null) {
-                    player.sendMessage("§e[§6§lCreeperLave§e] Ce joueur n'est actuellement pas connecté.");
+                    player.sendMessage("§6Anézia §f» §eCe joueur n'est actuellement pas connecté.");
                     return true;
                 }
                 if ((new GiveItems(target)).checkSlot()) {
                     target.getInventory().addItem((new GiveItems(1)).createCreeperLava());
                 } else {
-                    player.sendMessage("§e[§6§lCreeperLave§e] Vous ne pouvez pas vous donner §6l'oeuf §epuisque votre inventaire est complet.");
+                    player.sendMessage("§6Anézia §f» §eVous ne pouvez pas vous donner §6l'oeuf §epuisque votre inventaire est complet.");
                     return true;
                 }
             } else {
-                player.sendMessage("§7Commande : /creeepereau <Joueur>");
+                player.sendMessage("§6Anézia §f» §eCommande : /creeepereau <Joueur>");
                 return true;
             }
         } else {
-            player.sendMessage("§e[§6§lCreeperLave§e] Vous n'avez pas les permissions requises pour effectuer cette commande !");
+            player.sendMessage("§cVous n'avez pas la permission d'executer cette commande");
             return true;
         }
         return true;

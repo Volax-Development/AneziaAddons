@@ -15,6 +15,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 
@@ -90,11 +91,10 @@ public class HarvestHoeCommand implements CommandExecutor {
                         }
                         Player p = Bukkit.getPlayerExact(args[1]);
                         PlayerInventory inventory = p.getInventory();
-                        ArrayList<String> lore = AneziaAddons.getInstance().getLore("main-config.hoe-lore");
                         ItemStack harvesthoe = new ItemStack(Material.DIAMOND_HOE, 1);
                         ItemMeta harvesthoeM = harvesthoe.getItemMeta();
-                        harvesthoeM.setDisplayName(AneziaAddons.getInstance().getConfig().getString("main-config.hoe-name").replace("&", "§"));
-                        harvesthoeM.setLore(lore);
+                        harvesthoeM.setDisplayName("§c§l✸ §6§lHoue De Farm §c§l✸");
+                        harvesthoeM.setLore(Arrays.asList("§7§m------------------------------------", "", "§f§l» §eCette houe replante et duplique", "§evos plantations plus rapidement !", "" ,"§f§l» §e Utilisation §f: §7Infinie", "","§7§m------------------------------------"));
                         harvesthoeM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         harvesthoe.setItemMeta(harvesthoeM);
                         inventory.addItem(new ItemStack(harvesthoe));

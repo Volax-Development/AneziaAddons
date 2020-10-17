@@ -15,7 +15,7 @@ public class OrbeItem {
         if (type == OrbeType.SPEED) {
             it = new ItemStack(Material.SUGAR);
             ItemMeta meta = it.getItemMeta();
-            meta.setDisplayName("§7Orbe de §bVitesse");
+            meta.setDisplayName("§c§l✸ §6§lOrbe de Vitesse§c§l✸");
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             meta.setLore(Arrays.asList("§7Cette orbe vous permet d'avoir", "§bVitesse§7 tant que",
@@ -28,7 +28,7 @@ public class OrbeItem {
         if (type == OrbeType.FORCE) {
             it = new ItemStack(Material.BLAZE_POWDER);
             ItemMeta meta = it.getItemMeta();
-            meta.setDisplayName("§7Orbe de §cForce");
+            meta.setDisplayName("§c§l✸ §6§lOrbe de Force§c§l✸");
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             meta.setLore(Arrays.asList("§7Cette orbe vous permet d'avoir", "§cForce§7 tant que",
@@ -41,7 +41,7 @@ public class OrbeItem {
         if (type == OrbeType.FIRE) {
             it = new ItemStack(Material.MAGMA_CREAM);
             ItemMeta meta = it.getItemMeta();
-            meta.setDisplayName("§7Orbe de §6Fire résistance");
+            meta.setDisplayName("§c§l✸ §6§lOrbe de Résistance§c§l✸");
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             meta.setLore(Arrays.asList("§7Cette orbe vous permet d'avoir", "§6Fire résistance§7 tant que",
@@ -54,7 +54,7 @@ public class OrbeItem {
         if (type == OrbeType.FALL) {
             it = new ItemStack(Material.SLIME_BALL);
             ItemMeta meta = it.getItemMeta();
-            meta.setDisplayName("§7Orbe de §aFall");
+            meta.setDisplayName("§c§l✸ §6§lOrbe de Fall§c§l✸");
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             meta.setLore(Arrays.asList("§7Cette orbe vous permet de ne pas ", "§7avoir de §adégat de chute §7tant que",

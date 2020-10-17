@@ -30,10 +30,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 public class PlayerEvents implements Listener {
-    private AneziaAddons main;
-    private Map<OfflinePlayer, Location> chunkBusterLocations = new HashMap<>();
-    private Map<OfflinePlayer, Long> playerCooldowns = new HashMap<>();
-    private Map<OfflinePlayer, Long> noFallDamage = new HashMap<>();
+    private final AneziaAddons main;
+    private final Map<OfflinePlayer, Location> chunkBusterLocations = new HashMap<>();
+    private final Map<OfflinePlayer, Long> playerCooldowns = new HashMap<>();
+    private final Map<OfflinePlayer, Long> noFallDamage = new HashMap<>();
 
     public PlayerEvents(AneziaAddons main) {
         this.main = main;
@@ -42,7 +42,7 @@ public class PlayerEvents implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onChunkBusterPlace(BlockPlaceEvent e) {
         NBTItem nbtItem = new NBTItem(e.getItemInHand());
-        if (e.getItemInHand().getType().equals(this.main.getConfigValues().getChunkBusterMaterial()) && nbtItem.hasKey("chunkbuster.radius").booleanValue()) {
+        if (e.getItemInHand().getType().equals(this.main.getConfigValues().getChunkBusterMaterial()) && nbtItem.hasKey("chunkbuster.radius")) {
             e.setCancelled(true);
             Player p = e.getPlayer();
             if (p.hasPermission("chunkbuster.use")) {
@@ -51,12 +51,12 @@ public class PlayerEvents implements Listener {
                         if (this.main.getHookUtils().compareLocToPlayer(e.getBlock().getLocation(), p)) {
                             if (this.main.getConfigValues().getCooldown() > 0 &&
                                     this.playerCooldowns.containsKey(p) &&
-                                    System.currentTimeMillis() < ((Long) this.playerCooldowns.get(p)).longValue()) {
-                                long longDifference = ((Long) this.playerCooldowns.get(e.getPlayer())).longValue() - System.currentTimeMillis();
+                                    System.currentTimeMillis() < this.playerCooldowns.get(p)) {
+                                long longDifference = this.playerCooldowns.get(e.getPlayer()) - System.currentTimeMillis();
                                 int secondsDifference = (int) (longDifference / 1000L);
                                 int seconds = secondsDifference % 60;
                                 int minutes = secondsDifference / 60;
-                                this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.COOLDOWN, new Object[]{Integer.valueOf(minutes), Integer.valueOf(seconds)});
+                                this.main.getUtils().sendMessage(p, ConfigValues.Message.COOLDOWN, minutes, seconds);
                                 return;
                             }
                             this.chunkBusterLocations.put(p, e.getBlock().getLocation());
@@ -85,33 +85,18 @@ public class PlayerEvents implements Listener {
                                 }
                                 int slotCounter = 1;
                                 for (int i = 0; i < 9 * this.main.getConfigValues().getGUIRows(); i++) {
-                                    if (slotCounter < 5) {
-                                        confirmInv.setItem(i, acceptItem);
-                                    } else if (slotCounter > 5) {
-                                        confirmInv.setItem(i, cancelItem);
-                                    } else {
-                                        confirmInv.setItem(i, fillItem);
-                                    }
-                                    if (slotCounter >= 9) {
-                                        slotCounter = 1;
-                                    } else {
-                                        slotCounter++;
-                                    }
+                                    if (slotCounter < 5) confirmInv.setItem(i, acceptItem);
+                                    else if (slotCounter > 5) confirmInv.setItem(i, cancelItem);
+                                    else confirmInv.setItem(i, fillItem);
+                                    if (slotCounter >= 9) slotCounter = 1;
+                                    else slotCounter++;
                                 }
                                 p.openInventory(confirmInv);
                             }
-                        } else {
-                            this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.CANNOT_PLACE, new Object[0]);
-                        }
-                    } else {
-                        this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.NOT_MINIMUM_ROLE, new Object[0]);
-                    }
-                } else {
-                    this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.NO_FACTION, new Object[0]);
-                }
-            } else {
-                this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.NO_PERMISSION_PLACE, new Object[0]);
-            }
+                        } else this.main.getUtils().sendMessage(p, ConfigValues.Message.CANNOT_PLACE);
+                    } else this.main.getUtils().sendMessage(p, ConfigValues.Message.NOT_MINIMUM_ROLE);
+                } else this.main.getUtils().sendMessage(p, ConfigValues.Message.NO_FACTION);
+            } else this.main.getUtils().sendMessage(p, ConfigValues.Message.NO_PERMISSION_PLACE);
         }
     }
 
@@ -129,13 +114,13 @@ public class PlayerEvents implements Listener {
                             if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().getDisplayName().contains(this.main.getConfigValues().getConfirmName())) {
                                 int itemSlot = -1;
                                 NBTItem nbtItem = new NBTItem(p.getItemInHand());
-                                if (p.getItemInHand() != null && p.getItemInHand().getType().equals(this.main.getConfigValues().getChunkBusterMaterial()) && nbtItem.hasKey("chunkbuster.radius").booleanValue()) {
+                                if (p.getItemInHand() != null && p.getItemInHand().getType().equals(this.main.getConfigValues().getChunkBusterMaterial()) && nbtItem.hasKey("chunkbuster.radius")) {
                                     itemSlot = p.getInventory().getHeldItemSlot();
                                 } else {
                                     for (int i = 0; i <= 40; i++) {
                                         ItemStack currentItem = p.getInventory().getItem(i);
                                         nbtItem = new NBTItem(currentItem);
-                                        if (currentItem != null && currentItem.getType().equals(this.main.getConfigValues().getChunkBusterMaterial()) && nbtItem.hasKey("chunkbuster.radius").booleanValue()) {
+                                        if (currentItem != null && currentItem.getType().equals(this.main.getConfigValues().getChunkBusterMaterial()) && nbtItem.hasKey("chunkbuster.radius")) {
                                             itemSlot = i;
                                             break;
                                         }
@@ -145,14 +130,14 @@ public class PlayerEvents implements Listener {
                                         p.closeInventory();
                                         if (this.main.getConfigValues().cancelSoundEnabled())
                                             p.playSound(p.getLocation(), this.main.getConfigValues().getCancelSoundString(), this.main.getConfigValues().getCancelSoundVolume(), this.main.getConfigValues().getCancelSoundPitch());
-                                        this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.NO_ITEM, new Object[0]);
+                                        this.main.getUtils().sendMessage(p, ConfigValues.Message.NO_ITEM);
                                         return;
                                     }
                                 }
                                 ItemStack checkItem = p.getInventory().getItem(itemSlot);
                                 nbtItem = new NBTItem(checkItem);
-                                int chunkBusterDiameter = nbtItem.getInteger("chunkbuster.radius").intValue();
-                                this.playerCooldowns.put(p, Long.valueOf(System.currentTimeMillis() + (1000 * this.main.getConfigValues().getCooldown())));
+                                int chunkBusterDiameter = nbtItem.getInteger("chunkbuster.radius");
+                                this.playerCooldowns.put(p, System.currentTimeMillis() + (1000 * this.main.getConfigValues().getCooldown()));
                                 this.chunkBusterLocations.remove(p);
                                 p.closeInventory();
                                 if (this.main.getConfigValues().confirmSoundEnabled())
@@ -181,27 +166,19 @@ public class PlayerEvents implements Listener {
                                         p.playSound(p.getLocation(), this.main.getConfigValues().getClearingSoundString(), this.main.getConfigValues().getClearingSoundVolume(), this.main.getConfigValues().getClearingSoundPitch());
                                     this.main.getUtils().clearChunks(chunkBusterDiameter, chunkBusterLocation, p);
                                     if (this.main.getConfigValues().getNoFallMillis() > 0)
-                                        this.noFallDamage.put(p, Long.valueOf(System.currentTimeMillis() + this.main.getConfigValues().getNoFallMillis()));
+                                        this.noFallDamage.put(p, System.currentTimeMillis() + this.main.getConfigValues().getNoFallMillis());
                                 }
                             } else if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().getDisplayName().contains(this.main.getConfigValues().getCancelName())) {
                                 this.chunkBusterLocations.remove(p);
                                 p.closeInventory();
                                 if (this.main.getConfigValues().cancelSoundEnabled())
                                     p.playSound(p.getLocation(), this.main.getConfigValues().getCancelSoundString(), this.main.getConfigValues().getCancelSoundVolume(), this.main.getConfigValues().getCancelSoundPitch());
-                                this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.GUI_CANCEL, new Object[0]);
+                                this.main.getUtils().sendMessage(p, ConfigValues.Message.GUI_CANCEL);
                             }
-                        } else {
-                            this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.CANNOT_PLACE, new Object[0]);
-                        }
-                    } else {
-                        this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.NOT_MINIMUM_ROLE, new Object[0]);
-                    }
-                } else {
-                    this.main.getUtils().sendMessage((CommandSender) p, ConfigValues.Message.NO_FACTION, new Object[0]);
-                }
-            } else {
-                p.sendMessage(Utils.color("&cError, please re-place your chunk buster."));
-            }
+                        } else this.main.getUtils().sendMessage(p, ConfigValues.Message.CANNOT_PLACE);
+                    } else this.main.getUtils().sendMessage(p, ConfigValues.Message.NOT_MINIMUM_ROLE);
+                } else this.main.getUtils().sendMessage(p, ConfigValues.Message.NO_FACTION);
+            } else p.sendMessage(Utils.color("&cError, please re-place your chunk buster."));
         }
     }
 
@@ -216,7 +193,7 @@ public class PlayerEvents implements Listener {
         if (e.getCause() == EntityDamageEvent.DamageCause.FALL && e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
             if (this.noFallDamage.containsKey(p))
-                if (((Long) this.noFallDamage.get(p)).longValue() >= System.currentTimeMillis()) {
+                if (this.noFallDamage.get(p) >= System.currentTimeMillis()) {
                     e.setCancelled(true);
                 } else {
                     this.noFallDamage.remove(p);

@@ -36,10 +36,10 @@ public class EventListener implements Listener {
     Player player = event.getPlayer();
     Block block = event.getBlock();
     int[] blockallowed = { 1, 14, 15, 16, 21, 56, 73, 74, 129 };
-    if ((player.getGameMode() == GameMode.SURVIVAL || this.main.getConfig().getBoolean("only-survival")) && 
+    if ((player.getGameMode() == GameMode.SURVIVAL ||
       player.getItemInHand().getType() == Material.GOLD_PICKAXE && 
       player.getItemInHand().getItemMeta().hasDisplayName() && 
-      player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(this.main.getConfig().getString("hammer-name"))) {
+      player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l✸ §6§lHammer 3x3 §c§l✸"))) {
       byte b;
       int i;
       int[] arrayOfInt;
@@ -93,13 +93,13 @@ public class EventListener implements Listener {
         } else if (inv.getItem(i).getType() != Material.RECORD_9) {
           char c = (char)(i + 62);
           if (i < 9) {
-            etage[0] = String.valueOf(etage[0]) + c;
-          } else if (i > 8 && i < 18) {
-            etage[1] = String.valueOf(etage[1]) + c;
-          } else if (i > 17 && i < 27) {
-            etage[2] = String.valueOf(etage[2]) + c;
+            etage[0] = etage[0] + c;
+          } else if (i < 18) {
+            etage[1] = etage[1] + c;
+          } else {
+            etage[2] = etage[2] + c;
           } 
-          noair.add(Integer.valueOf(i));
+          noair.add(i);
         } 
       } 
       removeRecipe();
@@ -111,13 +111,13 @@ public class EventListener implements Listener {
             } else if (etage[i].equalsIgnoreCase(String.valueOf(alone[0].charAt(j)))) {
               etage[i] = " " + etage[i] + " ";
             } else if (etage[i].equalsIgnoreCase(String.valueOf(alone[1].charAt(j)))) {
-              etage[i] = String.valueOf(etage[i]) + "  ";
+              etage[i] = etage[i] + "  ";
             } else if (etage[i].equalsIgnoreCase(String.valueOf(alone[2].charAt(j)))) {
               etage[i] = "  " + etage[i];
             } else if (etage[i].equalsIgnoreCase(String.valueOf(alone[1].charAt(j) + alone[0].charAt(j)))) {
-              etage[i] = String.valueOf(etage[i]) + " ";
+              etage[i] = etage[i] + " ";
             } else if (etage[i].equalsIgnoreCase(String.valueOf(alone[1].charAt(j) + alone[2].charAt(j)))) {
-              etage[i] = String.valueOf(alone[1].charAt(j)) + " " + alone[2].charAt(j);
+              etage[i] = alone[1].charAt(j) + " " + alone[2].charAt(j);
             } else if (etage[i].equalsIgnoreCase(String.valueOf(alone[0].charAt(j) + alone[2].charAt(j)))) {
               etage[i] = " " + etage[i];
             } 
@@ -126,19 +126,19 @@ public class EventListener implements Listener {
       List<String> list = this.main.getConfig().getStringList("key");
       list.clear();
       for (Iterator<Integer> iterator = noair.iterator(); iterator.hasNext(); ) {
-        int e = ((Integer)iterator.next()).intValue();
+        int e = iterator.next();
         char c = (char)(e + 62);
-        recette.shape(new String[] { etage[0], etage[1], etage[2] });
+        recette.shape(etage[0], etage[1], etage[2]);
         recette.setIngredient(c, inv.getItem(e).getType(), inv.getItem(e).getData().getData());
         list.add(c + "/" + inv.getItem(e).getType().name() + "/" + inv.getItem(e).getData().getData());
         this.main.getConfig().set("key", list);
         this.main.saveConfig();
       } 
-      this.main.getConfig().set("craft.etage0", etage[0].toString());
-      this.main.getConfig().set("craft.etage1", etage[1].toString());
-      this.main.getConfig().set("craft.etage2", etage[2].toString());
+      this.main.getConfig().set("craft.etage0", etage[0]);
+      this.main.getConfig().set("craft.etage1", etage[1]);
+      this.main.getConfig().set("craft.etage2", etage[2]);
       this.main.saveConfig();
-      Bukkit.addRecipe((Recipe)recette);
+      Bukkit.addRecipe(recette);
     } 
   }
   
@@ -155,9 +155,3 @@ public class EventListener implements Listener {
       }  
   }
 }
-
-
-/* Location:              C:\Users\flo31\Desktop\BestHammer.jar!\fr\artek\besthammer\event\EventListener.class
- * Java compiler version: 8 (52.0)
- * JD-Core Version:       1.1.3
- */

@@ -9,103 +9,67 @@
 #########################################################################
 
 chunkbuster:
-  material: "ENDER_PORTAL_FRAME" # or END_PORTAL_FRAME in 1.13+
-  name: "&e\u2734 &a&lChunk Buster &e\u2734"
-  lore:
-    - "&7Radius: &e{area}"
-    - ""
-    - "&7Right click to place and destroy"
-    - "&7all the blocks in your chunk radius."
-  glow: true # Whether the item should glow as if it was enchanted.
+  material: "ENDER_PORTAL_FRAME"
+  glow: true
 
-# This amount of blocks will be processed from the queue per second
-# High numbers will make the blocks disappear instantly, but especially with
-# chunkbusters with 5+ radius, it may lag the server.
 blocks-removed-per-tick: 600
-
-# Change this to false if you don"t want to be able to destroy wilderness chunks. (factions)
 can-place-in-wilderness: true
-
-# The time you must wait before using another chunkbuster, in seconds. Set this to 0 for no cooldown.
 cooldown: 0
-
-# The amount of time that the player takes no fall damage after a chunk starts clearing. Set to 0 to disable.
 no-fall-seconds: 5
-
-# Chunkbusters clear between this minimum value and the maximum value (both inclusive). 0 and 255 means the whole chunk.
-# You can use "{player}" for the player"s Y-coordinate.
 minimum-y: 0
 maximum-y: 255
 
 warmup:
-  # Wait this whole number of seconds before executing the chunkbuster.
-  # This is useful if your players don"t have fly etc. 0 means no warmup.
   seconds: 0
-  # If true, the "clearing-in-seconds" message will send every second, and then finally the "clearing-chunks" message.
-  # If false, it will only say the first clearing message and then the "clearing-chunks" message.
   send-message-every-second: true
   warmup-sound-enabled: false
-  # These are the sound names, not the ones from the bukkit enum. Make sure
-  # to get the right names for your minecraft version (google search them).
-  # This sound plays when the warmup starts.
   warmup-sound: "random.levelup" # random.levelup is for 1.8 only
-  warmup-sound-volume: 1.0 # 0.0 to 1.0
-  warmup-sound-pitch: 1.0 # 0.0 to 2.0 (ex. 0.5 is half sound speed, 1 is normal speed, 2 is double speed)
-  # Choose the interval for the warmup sound, in seconds. 1 means the sound will play every second.
+  warmup-sound-volume: 1.0
+  warmup-sound-pitch: 1.0
   warmup-sound-interval: 1
-  # Sound played when the chunks start clearing. (After the warmup if it"s set)
   clearing-sound-enabled: false
   clearing-sound: "random.levelup"
   clearing-volume: 1.0
   clearing-pitch: 1.0
 
-# Whether to drop the items on the floor if inventory is full.
 full-inv-drop-on-floor: false
 
 confirm-gui:
-  # Maximum 6
   rows: 3
   confirm-material: "WOOL:5" # or GREEN_WOOL
   cancel-material: "WOOL:14" # or RED_WOOL
   fill-material: "AIR"
-  # Please do not leave leave any of these below texts empty ("") please
-  title: "&7CONFIRM CHUNK BUSTER"
-  confirm-block-name: "&aCONFIRM"
-  cancel-block-name: "&cDENY"
+  title: "&7CONFIRMER CHUNK BUSTER"
+  confirm-block-name: "&aCONFIRMER"
+  cancel-block-name: "&cANNULER"
   fill-name: ""
-  # The lores of the gui blocks. For no lore, put []. Otherwise
-  # make it a list (-) like the chunkbuster lore.
   confirm-block-lore: [] # No lore
   cancel-block-lore: # One empty lore line
     - ""
   fill-lore: []
-  # Sound when the confirm block is clicked
   confirm-sound-enabled: false
   confirm-sound: "random.levelup"
   confirm-volume: 1.0
   confirm-pitch: 1.0
-  # Sound when the cancel block is clicked or chunk buster is not found in player's inventory
   cancel-sound-enabled: false
   cancel-sound: "mob.villager.hit"
   cancel-volume: 1.0
   cancel-pitch: 1.0
 
-messages:
-  give: "&aYou gave {player} {amount} chunkbuster(s)."
-  receive: "&aYou have received {amount} chunkbuster(s)."
-  no-permission-command: "&cNo permission!"
-  no-permission-place: "&cYou cannot place chunkbusters!"
-  no-faction: "&cYou must have a faction to use a chunk buster!"
-  cannot-place: "&cYou cannot place chunk busters here! You can only place it in your territory or in wilderness!" # Change this to whatever makes sense
-  clearing-chunks: "&aClearing the chunk(s)!"
-  #This will only show if "chunkbuster-activation-delay" is above 0
-  clearing-in-seconds: "&aChunk(s) will clear in {seconds} second(s)."
-  not-minimum-role: "&cYou must be a faction (insert role) to use chunkbusters."
-  gui-cancel: "&cThe chunkbuster has been cancelled."
-  cooldown: "&cYou must wait {minutes} minute(s) and {seconds} second(s) to use this again!"
-  no-item: "&cYou must have a chunk buster in your inventory!"
+messageschunk:
+  give: "§6Anézia §f» §eTu as donné §6{amount} §echunkbuster(s) à §6{player}§e."
+  receive: "§6Anézia §f» §eTu as reçu §6{amount} §echunkbuster(s)."
+  no-permission-command: "§cVous n'avez pas la permission d'executer cette commande !"
+  no-permission-place: "§6Anézia §f» §eTu ne peux pas placer de chunkbusters!"
+  no-faction: "§6Anézia §f» §eTu dois avoir une faction pour poser un chunkbuster!"
+  cannot-place: "§6Anézia §f» §eTu ne peux pas placer de chunkbusters ici ! Tu ne peux seulement en Wilderness ou sur tes territoires !"
+  clearing-chunks: "§6Anézia §f» §eSupression du chunk !"
+  clearing-in-seconds: "§6Anézia §f» §eLe chunk sera effacé dans §6{seconds} §eseconde(s)."
+  not-minimum-role: "§6Anézia §f» §eTu dois être plus élevé dans cette faction pour pouvoir poser un chunkbuster."
+  gui-cancel: "§6Anézia §f» §eLe chunkbuster a été annulé !"
+  cooldown: "§6Anézia §f» §eTu dois attendre §6{minutes} §eminute(s) et §6{seconds} §eseconde(s) pour utiliser le chunkbuster !"
+  no-item: "§6Anézia §f» §eTu dois avoir un chunkbuster dans ton inventaire !"
 
-# Blocks that will not get cleared by chunkbusters. Use material enum names.
 ignored-materials:
   - "BEDROCK"
 
@@ -114,34 +78,7 @@ hooks:
   worldguard: true # Check for block-break flag in regions
   worldborder: true # Check for the worldborder, may or may not be a tiny bit slower
 
-# The minimum factions role for using chunkbusters
-# For FactionsUUID, set this to either "leader"/"admin", "coleader", "moderator", "member"/"normal", "recruit"/"any"
-# For MassiveCore Factions, set this to either "leader"/"admin", "officer", "member"/"normal", "recruit"/"any"
 minimum-factions-role: "any"
-
-
-
-############################################
-#******************************************#
-#******************************************#
-#****************BestHammer****************#
-#******************1.0.2*******************#
-#******************************************#
-############################################
-
-only-survival: false
-hammer-name: "§cHammer"
-lore: "§7- Can mine in a area of 3x3x2"
-
-craft:
-  etage0: "GGG"
-  etage1: "GGG"
-  etage2: " S "
-
-key:
-  - "G/GOLD_BLOCK/0"
-  - "S/STICK/0"
-
 
 
 ############################################
@@ -151,23 +88,33 @@ key:
 ############################################
 
 Messages:
-  NoPermission: '&cYou do not have permission for this command.'
-  CorrectUsage: '&cCorrect Usage: /sellwand <player>'
-  PlayerNotFound: '&c%player% is not currently online.'
-  ItemReceived: '&aYou have received a sell wand.'
-  ItemGiven: '&aYou have given a sell wand to %player%.'
-  AmountAdded: '&a$%amount% has been added to your account.'
-  Empty: '&cThis chest is currently empty.'
-  Territory: '&cYou cannot use this in another factions territory.'
+  NoPermission: "§cVous n'avez pas la permission d'executer cette commande !"
+  CorrectUsage: '§6Anézia §f» §eUsage correcte: /sellwand <player>'
+  PlayerNotFound: "§6Anézia §f» §e%player% n'est pas en ligne."
+  ItemReceived: '§6Anézia §f» §eTu viens de recevoir un bâton de vente.'
+  ItemGiven: '§6Anézia §f» §eTu viens de donner un bâton de vente à %player%.'
+  AmountAdded: '§6Anézia §f» §e$%amount% a bien été ajouté à ton compte.'
+  Empty: '§6Anézia §f» §eCe coffre est actuellement vide.'
+  Territory: "§6Anézia §f» §eTu ne peux pas l'utiliser sur le territoire d'une autre faction."
 
 sellwand:
   type: STICK
-  name: '&a&lSell Wand'
-  lore:
-    - '&7Right-click on a chest to sell all the items inside.'
 
-items: # Add a new itemstack id here
-  264: 500 # This is the amount that will be added to the players account
+items:
+  263: 3
+  331: 2
+  351:4: 2,5
+  265: 4
+  266: 10
+  264: 50
+  388: 50
+  115: 3,5
+  39: 5
+  296: 4
+  360: 1,2
+  391: 2,5
+  81: 3
+  338: 1,5
 
 
 
@@ -177,39 +124,21 @@ items: # Add a new itemstack id here
 #                                          #
 ############################################
 
-item:
-  material: 347 # id or name
-  data: '0'
-  name: "&bUnclaimFinder &7(Clique droit)"
-  lore: []
 durability: 25
-use-message: "&e%AMOUNT%&6% &fde chance de trouver une base. &c%DURABILITY%/25)"
+use-message: "§6Anézia §f» §6%AMOUNT%&6% &ede chance de trouver une base. &6(%DURABILITY%/25)"
 max-amount: 100
 
-
+############################################
+#                                          #
+#               Harvest Hoe                #
+#                                          #
+############################################
 
 main-config:
-  hoe-name: "&aHarvestHoe"
-  #The name of the harvestHoe (it shoud be the same to open the menu)
-  hoe-lore:
-    - "&7&m-------------&aHarvestHoe&7&m-------------"
-    - ""
-    - "&5*&bUse this hoe to harvest crops !"
-    - "&bIt will automatically sell the harvested resources !"
-    - ""
-    - "&eTips:"
-    - "&6- &dyou need a level to start harvesting !"
-    - "&6- &dyou can use &c/hh safemode &dto only breaks ripe crops !"
-    - "&6- &dsell prices depends of your harvest hoe level !"
-    - ""
-    - "&7&l(&eRight-Click to upgrade !&7&l)"
-    - ""
-    - "&7&m------------------------------"
-
   open-permission: "harvesthoe.open"
   #Here is the permission the player should have to open the menu
   requires-permission: false
-  no-perm-message: "&cYou don't have the permission to open the harvest menu !"
+  no-perm-message: "§cVous n'avez pas la permission d'executer cette commande !"
 
   enable-open-menu-message: true
   #If true a message will be appears in the chat for the player
@@ -226,8 +155,8 @@ main-config:
 
   safe-mode: #Safe mode give you the ability to not break crops when they are not mature
     enabled: true
-    enable-message: "&7Safe mode &aEnabled !"
-    disable-message: "&7Safe mode &cDisabled !"
+    enable-message: "§6Anézia §f» &eSafe mode §6activé §e!"
+    disable-message: "§6Anézia §f» §eSafe mode §6désactivé §e!"
     permission-require:
       enabled: true
       permission: "harvesthoe.safemode"
@@ -277,12 +206,10 @@ sounds:
     pitch: 1
 
 gui:
-  gui-name: "&a&lHarvest Hoe GUI"
+  gui-name: "§6Anézia §f» Harvest Menu"
 
   gui-size: 27
   #Can be 9, 18, 27, 36, 46, 54
-
-  #For all the items, pleace use this list: https://helpch.at/docs/1.12.2/index.html?org/bukkit/Material.html
 
   levelone:
     title: "&b✪Level 1✪" #/!\ Don't put same title to each level up icons
@@ -296,16 +223,16 @@ gui:
     lore:
       - "&c&m-----------------------"
       - ""
-      - "&e&lPrices:"
+      - "&e&lPrix:"
       - ""
-      - "&6- &bSugar-Cane&6: &a25$"
-      - "&6- &bWheat&6: &a30$"
-      - "&6- &bCarrots&6: &a30$"
-      - "&6- &bPotatoes&6: &a30$"
-      - "&6- &bMelons&6: &a30$"
-      - "&6- &bPumpkins&6: &a30$"
-      - "&6- &bCocoabeans&6: &a35$"
-      - "&6- &bNetherWarts&6: &a40$"
+      - "&6- &bSugar-Cane&6: &a1.5$"
+      - "&6- &bWheat&6: &a4$"
+      - "&6- &bCarrots&6: &a2.5$"
+      - "&6- &bPotatoes&6: &a2.5$"
+      - "&6- &bMelons&6: &a1.2$"
+      - "&6- &bPumpkins&6: &a2$"
+      - "&6- &bCocoabeans&6: &a4$"
+      - "&6- &bNetherWarts&6: &a3.5$"
       - ""
       - "&7Price to unlock: &c25000$"
       - "&7Status: &c✘"
@@ -314,16 +241,16 @@ gui:
     unlocked-lore:
       - "&a&m-----------------------"
       - ""
-      - "&e&lPrices:"
+      - "&e&lPrix:"
       - ""
-      - "&6- &bSugar-Cane&6: &a25$"
-      - "&6- &bWheat&6: &a30$"
-      - "&6- &bCarrots&6: &a30$"
-      - "&6- &bPotatoes&6: &a30$"
-      - "&6- &bMelons&6: &a30$"
-      - "&6- &bPumpkins&6: &a30$"
-      - "&6- &bCocoabeans&6: &a35$"
-      - "&6- &bNetherWarts&6: &a40$"
+      - "&6- &bSugar-Cane&6: &a1.5$"
+      - "&6- &bWheat&6: &a4$"
+      - "&6- &bCarrots&6: &a2.5$"
+      - "&6- &bPotatoes&6: &a2.5$"
+      - "&6- &bMelons&6: &a1.2$"
+      - "&6- &bPumpkins&6: &a2$"
+      - "&6- &bCocoabeans&6: &a4$"
+      - "&6- &bNetherWarts&6: &a3.5$"
       - ""
       - "&7Status: &a✔"
       - ""
@@ -332,38 +259,32 @@ gui:
     slot: 11
     quantity: 1
     permission-to-access: "harvesthoe.levelone"
-    #Here is the permission that makes the player able to upgrade his harvesthoe to level one !
     permission-to-get-unlocked: "harvesthoe.levelone.unlocked"
-    #Here is the permission to unlock to level for a player, if you want to upgrade harvesthoe to level one for a player
-    #just add him this permission (and remove other "permission-to-get-unlocked" from other levels to the player)
-    #Example:
-    #if you want a player to get level 3 unlocked, remove the permissions: "harvesthoe.levelone.unlocked" and "harvesthoe.leveltwo.unlocked" (if he have thoses)
-    #and now you can add "harvesthoe.levelthree.unlocked" to him !
     price-to-upgrade: 25000
     scane:
       enabled: true
-      sell-price: 25
+      sell-price: 1.5
     wheat:
       enabled: true
-      sell-price: 30
+      sell-price: 4
     carrots:
       enabled: true
-      sell-price: 30
+      sell-price: 2.5
     potatoes:
       enabled: true
-      sell-price: 30
+      sell-price: 2.5
     melons:
       enabled: true
-      sell-price: 30
+      sell-price: 1.2
     pumpkins:
       enabled: true
-      sell-price: 30
+      sell-price: 2
     netherwarts:
       enabled: true
-      sell-price: 40
+      sell-price: 4
     cocoabeans:
       enabled: true
-      sell-price: 35
+      sell-price: 3.5
 
   leveltwo:
     title: "&b✪✪Level 2✪✪" #/!\ Don't put same title to each level up icons
@@ -377,16 +298,16 @@ gui:
     lore:
       - "&c&m-----------------------"
       - ""
-      - "&e&lPrices:"
+      - "&e&lPrix:"
       - ""
-      - "&6- &bSugar-Cane&6: &a30$"
-      - "&6- &bWheat&6: &a35$"
-      - "&6- &bCarrots&6: &a35$"
-      - "&6- &bPotatoes&6: &a35$"
-      - "&6- &bMelons&6: &a35$"
-      - "&6- &bPumpkins&6: &a35$"
-      - "&6- &bCocoabeans&6: &a40$"
-      - "&6- &bNetherWarts&6: &a45$"
+      - "&6- &bSugar-Cane&6: &a2.5$"
+      - "&6- &bWheat&6: &a5$"
+      - "&6- &bCarrots&6: &a3$"
+      - "&6- &bPotatoes&6: &a3$"
+      - "&6- &bMelons&6: &a1.8$"
+      - "&6- &bPumpkins&6: &a2.5$"
+      - "&6- &bCocoabeans&6: &a4.5$"
+      - "&6- &bNetherWarts&6: &a4.5$"
       - ""
       - "&7Price to unlock: &c25000$"
       - "&7Status: &c✘"
@@ -395,16 +316,16 @@ gui:
     unlocked-lore:
       - "&a&m-----------------------"
       - ""
-      - "&e&lPrices:"
+      - "&e&lPrix:"
       - ""
-      - "&6- &bSugar-Cane&6: &a30$"
-      - "&6- &bWheat&6: &a35$"
-      - "&6- &bCarrots&6: &a35$"
-      - "&6- &bPotatoes&6: &a35$"
-      - "&6- &bMelons&6: &a35$"
-      - "&6- &bPumpkins&6: &a35$"
-      - "&6- &bCocoabeans&6: &a40$"
-      - "&6- &bNetherWarts&6: &a45$"
+      - "&6- &bSugar-Cane&6: &a2.5$"
+      - "&6- &bWheat&6: &a5$"
+      - "&6- &bCarrots&6: &a3$"
+      - "&6- &bPotatoes&6: &a3$"
+      - "&6- &bMelons&6: &a1.8$"
+      - "&6- &bPumpkins&6: &a2.5$"
+      - "&6- &bCocoabeans&6: &a4.5$"
+      - "&6- &bNetherWarts&6: &a4.5$"
       - ""
       - "&7Status: &a✔"
       - ""
@@ -423,28 +344,28 @@ gui:
     price-to-upgrade: 75000
     scane:
       enabled: true
-      sell-price: 30
+      sell-price: 2.5
     wheat:
       enabled: true
-      sell-price: 35
+      sell-price: 5
     carrots:
       enabled: true
-      sell-price: 35
+      sell-price: 3
     potatoes:
       enabled: true
-      sell-price: 35
+      sell-price: 3
     melons:
       enabled: true
-      sell-price: 35
+      sell-price: 1.8
     pumpkins:
       enabled: true
-      sell-price: 35
+      sell-price: 2.5
     netherwarts:
       enabled: true
-      sell-price: 45
+      sell-price: 4.5
     cocoabeans:
       enabled: true
-      sell-price: 40
+      sell-price: 4.5
 
   levelthree:
     title: "&b✪✪✪Level 3✪✪✪" #/!\ Don't put same title to each level up icons
@@ -458,16 +379,16 @@ gui:
     lore:
       - "&c&m-----------------------"
       - ""
-      - "&e&lPrices:"
+      - "&e&lPrix:"
       - ""
-      - "&6- &bSugar-Cane&6: &a35$"
-      - "&6- &bWheat&6: &a40$"
-      - "&6- &bCarrots&6: &a40$"
-      - "&6- &bPotatoes&6: &a30$"
-      - "&6- &bMelons&6: &a40$"
-      - "&6- &bPumpkins&6: &a40$"
-      - "&6- &bCocoabeans&6: &a45$"
-      - "&6- &bNetherWarts&6: &a50$"
+      - "&6- &bSugar-Cane&6: &a3$"
+      - "&6- &bWheat&6: &a5.5$"
+      - "&6- &bCarrots&6: &a4$"
+      - "&6- &bPotatoes&6: &a4$"
+      - "&6- &bMelons&6: &a2.4$"
+      - "&6- &bPumpkins&6: &a3$"
+      - "&6- &bCocoabeans&6: &a5$"
+      - "&6- &bNetherWarts&6: &a5$"
       - ""
       - "&7Price to unlock: &c25000$"
       - "&7Status: &c✘"
@@ -476,16 +397,16 @@ gui:
     unlocked-lore:
       - "&a&m-----------------------"
       - ""
-      - "&e&lPrices:"
+      - "&e&lPrix:"
       - ""
-      - "&6- &bSugar-Cane&6: &a35$"
-      - "&6- &bWheat&6: &a40$"
-      - "&6- &bCarrots&6: &a40$"
-      - "&6- &bPotatoes&6: &a30$"
-      - "&6- &bMelons&6: &a40$"
-      - "&6- &bPumpkins&6: &a40$"
-      - "&6- &bCocoabeans&6: &a45$"
-      - "&6- &bNetherWarts&6: &a50$"
+      - "&6- &bSugar-Cane&6: &a3$"
+      - "&6- &bWheat&6: &a5.5$"
+      - "&6- &bCarrots&6: &a4$"
+      - "&6- &bPotatoes&6: &a4$"
+      - "&6- &bMelons&6: &a2.4$"
+      - "&6- &bPumpkins&6: &a3$"
+      - "&6- &bCocoabeans&6: &a5$"
+      - "&6- &bNetherWarts&6: &a5$"
       - ""
       - "&7Status: &a✔"
       - ""
@@ -504,28 +425,28 @@ gui:
     price-to-upgrade: 250000
     scane:
       enabled: true
-      sell-price: 35
+      sell-price: 3
     wheat:
       enabled: true
-      sell-price: 40
+      sell-price: 5.5
     carrots:
       enabled: true
-      sell-price: 40
+      sell-price: 4
     potatoes:
       enabled: true
-      sell-price: 40
+      sell-price: 4
     melons:
       enabled: true
-      sell-price: 40
+      sell-price: 2.4
     pumpkins:
       enabled: true
-      sell-price: 40
+      sell-price: 3
     netherwarts:
       enabled: true
-      sell-price: 50
+      sell-price: 5
     cocoabeans:
       enabled: true
-      sell-price: 45
+      sell-price: 5
 
   quit:
     title: "&cQuit"
@@ -627,3 +548,106 @@ messages:
     hotbar:
       enabled: true
       message: "&a+%quantity% CocoaBeans selled ! (&7+ %price%$&a)"
+
+
+# -------------------------------
+#     HLR v1.3.1 config file
+# -------------------------------
+
+# Choose which worlds the tweaked hopper will work in.
+Enabled-in-worlds:
+  - world
+
+# Here you can choose what type of items the tweaked hopper will take in.
+ItemList:
+  # This includes all the common crops, i.e. Pumpkin, Cactus, Wheat, Seeds, Carrot,
+  # Potato(including Poisonous ones), Sugarcane, Red/Brown Mushrooms, Melons and Nether warts.
+  Crops: true
+  # This includes all the common mob drops, i.e. Feather, Raw chicken, Raw Beef, Raw Porkchop,
+  # Raw mutton, Spider eye, Ender pearl, Bone, Arrow, Wool, Iron Ingot, Blaze rod, Gunpowder,
+  # String, Gold nugget, Slimeball, Ink sack, Leather, Rotten Flesh, Prismarine Shard, Prismarine Crystals and Raw Fish.
+  Mob-drops: true
+  # Here you can add the custom items you want to be taken in by the tweaked hopper.
+  # Please use Bukkit's material list's name.
+  # For those items with a damage value, please do the item name followed by a colon, as shown in example 2.
+  Custom-items:
+    # - EXAMPLE_MATERIAL
+    # - EXAMPLE_MATERIAL:1
+    -
+
+      # Here you can set how many hoppers can be converted at once.
+    # e.g. Max-amount: 5, players can't convert a stack of hoppers with more than 5 hoppers in it.
+Max-amount: 10
+
+# Use permissions?
+Use-permissions: true
+
+# You can set how many tweaked hoppers can be in 1 chunk here.
+# set -1 for unlimited tweaked hoppers in one chunk.
+# any number is or larger than 16*16 will be the same as unlimited tweaked hoppers.
+Chunk-HopperLimit: -1
+
+# Retain the tweaked hopper or drop a new hopper upon tweaked hopper breaking?
+Retain-tweaked: false
+
+# Here you can set if player drops would be picked up by the hopper or not.
+Greedy-mode: false
+
+# To further reduce lag caused by farms, this forces the following types of farms
+# to only be able to work when a crop hopper is in the chunk.
+# Set to false to disable the farm type.
+Farm-tweaks:
+  #This refers to the initial spawning of entities by spawners, not their death.
+  Spawners:
+    Allow: true
+    #This allows specific types of spawners to still work under no crop hoppers.
+    Whitelist:
+      -
+      #This refers to every farms using a piston to break the crop.
+  Piston-farms:
+    Allow: false
+    #This blacklists the blocks you want pistons to not farm. Default is
+    #Pumpkin, Melon and Sugarcane.
+    Blacklist:
+      - PUMPKIN
+      - MELON_BLOCK
+      - SUGAR_CANE_BLOCK
+  #This refers to every farms using water to break the crop.
+  Water-farms:
+    Allow: true
+    #This blacklists the blocks you want water to not flow and destroy. Default is
+    #Potato, Carrot, Wheat and Nether warts.
+    Blacklist:
+      - POTATO
+      - CARROT
+      - CROPS
+      - NETHER_WARTS
+  #This refers to the conventional method of cactus breaking by adjacent block.
+  Cactus-farms: true
+
+# Enable /converthopper cooldown?
+Cooldown:
+  Enable: false
+  Seconds: 30
+
+# Use economy? Vault API required
+Eco:
+  Use: false
+  Conversion-fee: 0.0
+
+
+no-perm: "§cVous n'avez pas la permission d'executer cette commande !"
+chest-warning: "§6Anézia §f» §eTu dois regarder le coffre !"
+only-players: "§6Anézia §f» §eSeuls les joueurs peuvent exécuter cette commande !"
+item-type-amount: "§6Anézia §f» §eContenue du coffre: §6%item%§e, nombre: §6%num%§e."
+item-type: "§6Anézia §f» §eContenu du coffre: §e%item%!"
+no-item: "§6Anézia §f» §eVous n'avez pas d'item spécial pour voir le contenu du coffre!"
+mode-changed: "§6Anézia §f» §eLe mode d'affichage est devenu &e%state%."
+reloaded: "§6Anézia §f» §eConfiguration rechargée!"
+chest-name: "§eContenu coffre"
+
+remove-item: false
+show-amount: true
+blacklisted-items:
+  - STONE
+  - SAND

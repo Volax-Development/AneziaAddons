@@ -19,15 +19,15 @@ import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class EauListener implements Listener {
-    private HashMap<Player, Boolean> playersCreepers = new HashMap<Player, Boolean>();
+    private final HashMap<Player, Boolean> playersCreepers = new HashMap<Player, Boolean>();
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         if (e.getItem() == null || e.getItem().getType() == Material.AIR)
             return;
-        if (e.getItem().getType() == Material.MONSTER_EGG && e.getItem().getItemMeta().getDisplayName().equals("§d✿ §bCreeper §nd'eau")) {
+        if (e.getItem().getType() == Material.MONSTER_EGG && e.getItem().getItemMeta().getDisplayName().equals("§c§l✸ §6§lCreeper d'Eau §c§l✸")) {
             Player player = e.getPlayer();
-            this.playersCreepers.put(player, Boolean.valueOf(true));
+            this.playersCreepers.put(player, true);
         }
     }
 
@@ -45,7 +45,7 @@ public class EauListener implements Listener {
     public void onEntityDamage(EntityDamageEvent e) {
         Entity entity = e.getEntity();
         if (entity instanceof Creeper &&
-                entity.getName().equals("§d✿ §bCreeper §nd'eau") &&
+                entity.getName().equals("§c§l✸ §6§lCreeper d'Eau §c§l✸") &&
                 e.getCause() == EntityDamageEvent.DamageCause.DROWNING)
             e.setCancelled(true);
     }
@@ -54,7 +54,7 @@ public class EauListener implements Listener {
     public void onExplodeWater(EntityExplodeEvent e) {
         Entity entity = e.getEntity();
         if (entity instanceof Creeper &&
-                entity.getName().equals("§d✿ §bCreeper §nd'eau")) {
+                entity.getName().equals("§c§l✸ §6§lCreeper d'Eau §c§l✸")) {
             explodeWater(entity.getLocation());
             customizeCreeper((Creeper) entity);
         }

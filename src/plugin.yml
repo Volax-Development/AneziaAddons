@@ -1,9 +1,11 @@
 main: fr.volax.anezia.AneziaAddons
-version: 1.0.02
+version: 1.0.03
 name: AneziaAddons
 author: Volax
 softdepend: [Factions, WorldGuard, WorldEdit]
 depend: [Vault]
+load: POSTWORLD
+
 commands:
   chunkbuster:
     description: Give a player (a) chunkbuster(s).
@@ -31,6 +33,21 @@ commands:
     aliases: [givefinder, givewacfinder]
   hh:
     description: "All HarvestHoe commands"
+  givepoisonsword:
+    description: "Give poison sword"
+  converthopper:
+    description: converts normal hopper to a specific one.
+    usage: /<command>
+    aliases: [ chopper ]
+  hlr:
+    description: sub-commands of this plugin.
+    usage: /<command> [help/about/reload]
+  giveend:
+  givechestviewer:
+  chestviewer:
+    description: View chest contents
+    aliases: [ cv, cviewer ]
+
 permissions:
   chunkbuster.give:
     description: Access to the /cb give command.

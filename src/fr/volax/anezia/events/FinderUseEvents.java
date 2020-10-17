@@ -1,7 +1,6 @@
 package fr.volax.anezia.events;
 
 import fr.volax.anezia.AneziaAddons;
-import net.minecraft.server.v1_8_R3.NBTBase;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagInt;
 import org.bukkit.Material;
@@ -44,7 +43,7 @@ public class FinderUseEvents implements Listener {
             player.playSound(player.getLocation(), Sound.ITEM_BREAK, 100.0F, 100.0F);
             return;
         }
-        itemCompound.set("wacfinder-durability", (NBTBase) new NBTTagInt(i));
+        itemCompound.set("wacfinder-durability", new NBTTagInt(i));
         nmsItem.setTag(itemCompound);
         player.setItemInHand(CraftItemStack.asBukkitCopy(nmsItem));
         player.playSound(player.getLocation(), Sound.LEVEL_UP, 100.0F, i);

@@ -82,7 +82,7 @@ public class HarvestHoeListeners implements Listener {
         double totalEarned;
         if (!AneziaAddons.getInstance().setupEconomy())
             return;
-        if (item.getType() == Material.DIAMOND_HOE && item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals(this.main.getConfig().getString("main-config.hoe-name").replace("&", "§"))) {
+        if (item.getType() == Material.DIAMOND_HOE && item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("§c§l✸ §6§lHoue de Farm §c§l✸")) {
             if (!this.safemd.containsKey(player.getUniqueId()))
                 this.safemd.put(player.getUniqueId(), Boolean.FALSE);
             if (this.safemd.get(player.getUniqueId()) && this.main.getConfig().getBoolean("main-config.safe-mode.enabled"))
@@ -97,8 +97,6 @@ public class HarvestHoeListeners implements Listener {
                 blockAbove = blockPosAbove.getBlock();
                 amount = amount + 1;
                 checkForMoney("scane", player, event);
-                if (this.main.getConfig().getBoolean("sounds.scane.enabled"))
-                    PlaySound(player, this.main.getConfig().getString("sounds.scane.sound"), (float) this.main.getConfig().getDouble("sounds.scane.volume"), (float) this.main.getConfig().getDouble("sounds.scane.pitch"));
                 while (blockAbove.getType() == Material.SUGAR_CANE_BLOCK) {
                     blockPosAbove.add(0.0D, 1.0D, 0.0D);
                     amount = amount + 1;
@@ -128,8 +126,6 @@ public class HarvestHoeListeners implements Listener {
             if (block.getType() == Material.CROPS && state == CropState.RIPE) {
                 amount = (new Random()).nextInt(3) + 1;
                 checkForMoney("wheat", player, event);
-                if (this.main.getConfig().getBoolean("sounds.wheat.enabled"))
-                    PlaySound(player, this.main.getConfig().getString("sounds.wheat.sound"), (float) this.main.getConfig().getDouble("sounds.wheat.volume"), (float) this.main.getConfig().getDouble("sounds.wheat.pitch"));
                 totalEarned = checkForSellPrice("wheat", player, amount);
                 if (this.main.getConfig().getBoolean("auto-replant.wheat")) {
                     block.setType(Material.CROPS);
@@ -153,8 +149,6 @@ public class HarvestHoeListeners implements Listener {
             if (block.getType() == Material.CARROT && state == CropState.RIPE) {
                 amount = (new Random()).nextInt(3) + 1;
                 checkForMoney("carrots", player, event);
-                if (this.main.getConfig().getBoolean("sounds.carrots.enabled"))
-                    PlaySound(player, this.main.getConfig().getString("sounds.carrots.sound"), (float) this.main.getConfig().getDouble("sounds.carrots.volume"), (float) this.main.getConfig().getDouble("sounds.carrots.pitch"));
                 totalEarned = checkForSellPrice("carrots", player, amount);
                 if (this.main.getConfig().getBoolean("auto-replant.carrots")) {
                     block.setType(Material.CARROT);
@@ -178,8 +172,6 @@ public class HarvestHoeListeners implements Listener {
             if (block.getType() == Material.POTATO && state == CropState.RIPE) {
                 amount = (new Random()).nextInt(3) + 1;
                 checkForMoney("potatoes", player, event);
-                if (this.main.getConfig().getBoolean("sounds.potatoes.enabled"))
-                    PlaySound(player, this.main.getConfig().getString("sounds.potatoes.sound"), (float) this.main.getConfig().getDouble("sounds.potatoes.volume"), (float) this.main.getConfig().getDouble("sounds.potatoes.pitch"));
                 totalEarned = checkForSellPrice("potatoes", player, amount);
                 if (this.main.getConfig().getBoolean("auto-replant.potatoes")) {
                     block.setType(Material.POTATO);
@@ -203,8 +195,6 @@ public class HarvestHoeListeners implements Listener {
             if (block.getType() == Material.MELON_BLOCK) {
                 amount = (new Random()).nextInt(3) + 1;
                 checkForMoney("melons", player, event);
-                if (this.main.getConfig().getBoolean("sounds.melons.enabled"))
-                    PlaySound(player, this.main.getConfig().getString("sounds.melons.sound"), (float) this.main.getConfig().getDouble("sounds.melons.volume"), (float) this.main.getConfig().getDouble("sounds.melons.pitch"));
                 totalEarned = checkForSellPrice("melons", player, amount);
                 block.setType(Material.AIR);
                 if (this.main.getConfig().getBoolean("messages.melons.chat.enabled")) {
@@ -224,8 +214,6 @@ public class HarvestHoeListeners implements Listener {
             if (block.getType() == Material.PUMPKIN) {
                 amount = amount + 1;
                 checkForMoney("pumpkins", player, event);
-                if (this.main.getConfig().getBoolean("sounds.pumpkins.enabled"))
-                    PlaySound(player, this.main.getConfig().getString("sounds.pumpkins.sound"), (float) this.main.getConfig().getDouble("sounds.pumpkins.volume"), (float) this.main.getConfig().getDouble("sounds.pumpkins.pitch"));
                 totalEarned = checkForSellPrice("pumpkins", player, amount);
                 block.setType(Material.AIR);
                 if (this.main.getConfig().getBoolean("messages.pumpkins.chat.enabled")) {
@@ -243,8 +231,6 @@ public class HarvestHoeListeners implements Listener {
             if (block.getType() == Material.NETHER_WARTS && netherstate == NetherWartsState.RIPE) {
                 amount = (new Random()).nextInt(3) + 1;
                 checkForMoney("netherwarts", player, event);
-                if (this.main.getConfig().getBoolean("sounds.netherwarts.enabled"))
-                    PlaySound(player, this.main.getConfig().getString("sounds.netherwarts.sound"), (float) this.main.getConfig().getDouble("sounds.netherwarts.volume"), (float) this.main.getConfig().getDouble("sounds.netherwarts.pitch"));
                 totalEarned = checkForSellPrice("netherwarts", player, amount);
                 if (this.main.getConfig().getBoolean("auto-replant.netherwarts")) {
                     block.setType(Material.NETHER_WARTS);
@@ -266,8 +252,6 @@ public class HarvestHoeListeners implements Listener {
             if (block.getType() == Material.COCOA && cocoastate == CocoaPlant.CocoaPlantSize.LARGE) {
                 amount = (new Random()).nextInt(3) + 1;
                 checkForMoney("cocoabeans", player, event);
-                if (this.main.getConfig().getBoolean("sounds.cocoabeans.enabled"))
-                    PlaySound(player, this.main.getConfig().getString("sounds.cocoabeans.sound"), (float) this.main.getConfig().getDouble("sounds.cocoabeans.volume"), (float) this.main.getConfig().getDouble("sounds.cocoabeans.pitch"));
                 totalEarned = checkForSellPrice("cocoabeans", player, amount);
                 if (this.main.getConfig().getBoolean("auto-replant.cocoabeans")) {
                     BlockFace face = ((CocoaPlant) block.getState().getData()).getFacing();
@@ -303,13 +287,11 @@ public class HarvestHoeListeners implements Listener {
             return;
         if (it.getType() == Material.DIAMOND_HOE && (
                 action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) &&
-                it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equals(this.main.getConfig().getString("main-config.hoe-name").replace("&", "§")))
+                it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equals("§c§l✸ §6§lHoue De Farm §c§l✸"))
             if ((player.hasPermission(this.main.getConfig().getString("main-config.open-permission")) && this.main.getConfig().getBoolean("main-config.requires-permission")) || !this.main.getConfig().getBoolean("main-config.requires-permission")) {
                 event.setCancelled(true);
                 if (player.hasPermission("*"))
                     player.sendMessage("§cYou are currently op so the level up system consider you as level three");
-                if (this.main.getConfig().getBoolean("main-config.open-sound.enabled"))
-                    PlaySound(player, this.main.getConfig().getString("main-config.open-sound.sound"), (float) this.main.getConfig().getDouble("main-config.open-sound.volume"), (float) this.main.getConfig().getDouble("main-config.open-sound.pitch"));
                 boolean sendmsg = this.main.getConfig().getBoolean("main-config.enable-open-menu-message");
                 if (sendmsg)
                     player.sendMessage(this.main.getConfig().getString("main-config.open-menu-message").replace("&", "§"));
@@ -405,20 +387,10 @@ public class HarvestHoeListeners implements Listener {
                                     AneziaAddons.permission.playerAdd(player, this.main.getConfig().getString("gui.levelone.permission-to-get-unlocked"));
                                     player.sendMessage("§c" + this.main.getConfig().getInt("gui.levelone.price-to-upgrade") + "$ §7has been taken from your account !");
                                     player.sendMessage("§bHarvestHoe §ahas successfully upgraded to level 1 !");
-                                    if (this.main.getConfig().getBoolean("gui.levelone.levelup-sound.enabled"))
-                                        PlaySound(player, this.main.getConfig().getString("gui.levelone.levelup-sound.sound"), (float) this.main.getConfig().getDouble("gui.levelone.levelup-sound.volume"), (float) this.main.getConfig().getDouble("gui.levelone.levelup-sound.pitch"));
-                                } else {
-                                    player.sendMessage("§cYou don't have enought money for that (" + AneziaAddons.economy.getBalance(player) + "$ / " + this.main.getConfig().getInt("gui.levelone.price-to-upgrade") + "$");
-                                }
-                            } else {
-                                player.sendMessage("§cYou already have a better level !");
-                            }
-                        } else {
-                            player.sendMessage("§cLevel 1 Already unlocked");
-                        }
-                    } else {
-                        player.sendMessage("§cInssuficient permission");
-                    }
+                                } else player.sendMessage("§cYou don't have enought money for that (" + AneziaAddons.economy.getBalance(player) + "$ / " + this.main.getConfig().getInt("gui.levelone.price-to-upgrade") + "$");
+                            } else player.sendMessage("§cYou already have a better level !");
+                        } else player.sendMessage("§cLevel 1 Already unlocked");
+                    } else player.sendMessage("§cInssuficient permission");
                 event.setCancelled(true);
                 return;
             }
@@ -435,20 +407,10 @@ public class HarvestHoeListeners implements Listener {
                                     player.sendMessage("§c" + this.main.getConfig().getInt("gui.leveltwo.price-to-upgrade") + "$ §7has been taken from your account !");
                                     player.sendMessage("§bHarvestHoe §ahas successfully upgraded to level 2 !");
                                     AneziaAddons.permission.playerRemove(player.getWorld().toString(), player, this.main.getConfig().getString("gui.levelone.permission-to-get-unlocked"));
-                                    if (this.main.getConfig().getBoolean("gui.leveltwo.levelup-sound.enabled"))
-                                        PlaySound(player, this.main.getConfig().getString("gui.leveltwo.levelup-sound.sound"), (float) this.main.getConfig().getDouble("gui.leveltwo.levelup-sound.volume"), (float) this.main.getConfig().getDouble("gui.leveltwo.levelup-sound.pitch"));
-                                } else {
-                                    player.sendMessage("§cYou don't have enought money for that (" + AneziaAddons.economy.getBalance(player) + "$ / " + this.main.getConfig().getInt("gui.leveltwo.price-to-upgrade") + "$");
-                                }
-                            } else {
-                                player.sendMessage("§cYou already have a better level");
-                            }
-                        } else {
-                            player.sendMessage("§cLevel 2 Already unlocked");
-                        }
-                    } else {
-                        player.sendMessage("§cInssuficient permission");
-                    }
+                                } else player.sendMessage("§cYou don't have enought money for that (" + AneziaAddons.economy.getBalance(player) + "$ / " + this.main.getConfig().getInt("gui.leveltwo.price-to-upgrade") + "$");
+                            } else player.sendMessage("§cYou already have a better level");
+                        } else player.sendMessage("§cLevel 2 Already unlocked");
+                    } else player.sendMessage("§cInssuficient permission");
                 event.setCancelled(true);
                 return;
             }
@@ -465,28 +427,15 @@ public class HarvestHoeListeners implements Listener {
                                     player.sendMessage("§c" + this.main.getConfig().getInt("gui.levelthree.price-to-upgrade") + "$ §7has been taken from your account !");
                                     player.sendMessage("§bHarvestHoe §ahas successfully upgraded to level 3 !");
                                     AneziaAddons.permission.playerRemove(player.getWorld().toString(), player, this.main.getConfig().getString("gui.leveltwo.permission-to-get-unlocked"));
-                                    if (this.main.getConfig().getBoolean("gui.levelthree.levelup-sound.enabled"))
-                                        PlaySound(player, this.main.getConfig().getString("gui.levelthree.levelup-sound.sound"), (float) this.main.getConfig().getDouble("gui.levelthree.levelup-sound.volume"), (float) this.main.getConfig().getDouble("gui.levelthree.levelup-sound.pitch"));
-                                } else {
-                                    player.sendMessage("§cYou don't have enought money for that (" + AneziaAddons.economy.getBalance(player) + "$ / " + this.main.getConfig().getInt("gui.levelthree.price-to-upgrade") + "$");
-                                }
-                            } else {
-                                player.sendMessage("§cUnlock level 2 first !");
-                            }
-                        } else {
-                            player.sendMessage("§cLevel 3 Already unlocked");
-                        }
-                    } else {
-                        player.sendMessage("§cInssuficient permission");
-                    }
+                                } else player.sendMessage("§cYou don't have enought money for that (" + AneziaAddons.economy.getBalance(player) + "$ / " + this.main.getConfig().getInt("gui.levelthree.price-to-upgrade") + "$");
+                            } else player.sendMessage("§cUnlock level 2 first !");
+                        } else player.sendMessage("§cLevel 3 Already unlocked");
+                    } else player.sendMessage("§cInssuficient permission");
                 event.setCancelled(true);
                 return;
             }
-            if (current.getType() == quitmaterial && current.getItemMeta().getDisplayName().equals(this.main.getConfig().getString("gui.quit.title").replace("&", "§"))) {
-                player.closeInventory();
-            } else {
-                event.setCancelled(true);
-            }
+            if (current.getType() == quitmaterial && current.getItemMeta().getDisplayName().equals(this.main.getConfig().getString("gui.quit.title").replace("&", "§"))) player.closeInventory();
+            else event.setCancelled(true);
         }
     }
 
@@ -503,12 +452,6 @@ public class HarvestHoeListeners implements Listener {
         }
         it.setItemMeta(itM);
         return it;
-    }
-
-    public void PlaySound(Player player, String sound, Float Volume, Float Pitch) {
-        Sound thesound;
-        thesound = Sound.valueOf(sound);
-        player.playSound(player.getLocation(), thesound, Volume, Pitch);
     }
 
     public ArrayList<String> getLore(String s) {
@@ -535,15 +478,10 @@ public class HarvestHoeListeners implements Listener {
 
     private double checkForSellPrice(String s, Player player, Integer amount) {
         double totalEarned = 0.0D;
-        if (player.hasPermission("*")) {
-            totalEarned = amount * this.main.getConfig().getDouble("gui.levelthree." + s + ".sell-price");
-        } else if (player.hasPermission(this.main.getConfig().getString("gui.levelone.permission-to-get-unlocked"))) {
-            totalEarned = amount * this.main.getConfig().getDouble("gui.levelone." + s + ".sell-price");
-        } else if (player.hasPermission(this.main.getConfig().getString("gui.leveltwo.permission-to-get-unlocked"))) {
-            totalEarned = amount * this.main.getConfig().getDouble("gui.leveltwo." + s + ".sell-price");
-        } else if (player.hasPermission(this.main.getConfig().getString("gui.levelthree.permission-to-get-unlocked"))) {
-            totalEarned = amount * this.main.getConfig().getDouble("gui.levelthree." + s + ".sell-price");
-        }
+        if (player.hasPermission("*")) totalEarned = amount * this.main.getConfig().getDouble("gui.levelthree." + s + ".sell-price");
+        else if (player.hasPermission(this.main.getConfig().getString("gui.levelone.permission-to-get-unlocked"))) totalEarned = amount * this.main.getConfig().getDouble("gui.levelone." + s + ".sell-price");
+        else if (player.hasPermission(this.main.getConfig().getString("gui.leveltwo.permission-to-get-unlocked"))) totalEarned = amount * this.main.getConfig().getDouble("gui.leveltwo." + s + ".sell-price");
+        else if (player.hasPermission(this.main.getConfig().getString("gui.levelthree.permission-to-get-unlocked"))) totalEarned = amount * this.main.getConfig().getDouble("gui.levelthree." + s + ".sell-price");
         return totalEarned;
     }
 

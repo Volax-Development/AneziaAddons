@@ -15,7 +15,7 @@ public class FinderCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
         if (args.length == 1 && Bukkit.getPlayer(args[0]) != null) {
-            Bukkit.getPlayer(args[0]).getInventory().addItem(new ItemStack[]{this.item});
+            Bukkit.getPlayer(args[0]).getInventory().addItem(this.item);
             sender.sendMessage("§fTu as donné un unclaim finder à §a" + args[0] + "§f.");
             return true;
         }

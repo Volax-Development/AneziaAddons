@@ -16,13 +16,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 
 public class Utils {
     private AneziaAddons main;
-
     private Set<Chunk> waterChunks = new HashSet<>();
 
     public Utils(AneziaAddons main) {
@@ -56,8 +54,8 @@ public class Utils {
         short damage = 0;
         if (rawSplit.length > 1)
             try {
-                damage = Short.valueOf(rawSplit[1]).shortValue();
-            } catch (IllegalArgumentException illegalArgumentException) {}
+                damage = Short.parseShort(rawSplit[1]);
+            } catch (IllegalArgumentException ignored) {}
         return new ItemStack(material, 1, damage);
     }
 
@@ -69,7 +67,7 @@ public class Utils {
     private void addGlow(ItemStack item) {
         item.addUnsafeEnchantment(Enchantment.LURE, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_ENCHANTS });
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
     }
 
@@ -99,8 +97,8 @@ public class Utils {
                     }
                 }
             }
-            removalQueue.runTaskTimer((Plugin)this.main, 1L, 1L);
-            this.main.getUtils().sendMessage((CommandSender)p, ConfigValues.Message.CLEARING_CHUNKS, new Object[0]);
+            removalQueue.runTaskTimer(this.main, 1L, 1L);
+            this.main.getUtils().sendMessage(p, ConfigValues.Message.CLEARING_CHUNKS);
         } else {
             p.sendMessage(color("&cInvalid chunk buster!"));
         }
@@ -123,13 +121,13 @@ public class Utils {
     public ItemStack getChunkBusterItem(int giveAmount, int chunkArea) {
         ItemStack item = new ItemStack(this.main.getConfigValues().getChunkBusterMaterial(), giveAmount, this.main.getConfigValues().getChunkBusterDamage());
         ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.setDisplayName(this.main.getConfigValues().getChunkBusterName());
-        itemMeta.setLore(this.main.getConfigValues().getChunkBusterLore(chunkArea));
+            itemMeta.setDisplayName("§c§l✸ §6§lChunkBuster §c§l✸");
+        itemMeta.setLore(Arrays.asList("§7§m------------------------------------", "§ePermet de cruser tout un chunk 16x16", "§eblocs instantanément", "§cClic droit pour placer et détruire", "§7§m------------------------------------"));
         item.setItemMeta(itemMeta);
         if (this.main.getConfigValues().itemShouldGlow())
             addGlow(item);
         NBTItem nbtItem = new NBTItem(item);
-        nbtItem.setInteger("chunkbuster.radius", Integer.valueOf(chunkArea));
+        nbtItem.setInteger("chunkbuster.radius", chunkArea);
         return nbtItem.getItem();
     }
 }
